@@ -24,6 +24,15 @@ namespace tp10
 		}
 
 		/// <summary>
+		/// 
+		/// </summary>
+		public class Item
+		{
+			public string datasetid;
+			public string recordid;
+		}
+
+		/// <summary>
 		/// Affichage de l'aide du programme en cas d'entrée erronée.
 		/// </summary>
 		private static void help()
