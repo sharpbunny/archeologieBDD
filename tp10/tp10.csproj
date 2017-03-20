@@ -47,8 +47,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="archeoContext.cs" />
+    <Compile Include="Commune.cs" />
+    <Compile Include="departement.cs" />
+    <Compile Include="intervention.cs" />
+    <Compile Include="periode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="site_intervention.cs" />
+    <Compile Include="theme.cs" />
+    <Compile Include="type_intervention.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
