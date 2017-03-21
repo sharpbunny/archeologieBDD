@@ -30,8 +30,15 @@ namespace tp10
 				switch (args[0])
 				{
 					case "-f":
-
-						fichierJson = new JsonFile(args[1]);
+                        
+						if (File.Exists(args[1]))
+						{
+							fichierJson = new JsonFile(args[1]);
+						}
+						else
+						{
+							Console.WriteLine("Le fichier {0} n'existe pas", args[1]);
+						}
 
 						break;
 					default:
