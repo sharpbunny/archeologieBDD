@@ -46,6 +46,7 @@ namespace tp10
 		/// <summary>
 		/// Chargement du fichier json.
 		/// </summary>
+		/// <param name="filename">Nom du fichier à parser.</param>
 		public static dynamic LoadJson(string filename)
 		{
 			using (StreamReader r = new StreamReader(filename))
