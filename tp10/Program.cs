@@ -9,28 +9,23 @@ namespace tp10
 		/// <summary>
 		/// Chargement du fichier json.
 		/// </summary>
-		public static void LoadJson(string filename)
+		public static dynamic LoadJson(string filename)
 		{
 			using (StreamReader r = new StreamReader(filename))
 			{
+                //Variable qui va lire le fichier jusqu'à la fin
 				string json = r.ReadToEnd();
 				//List<Item> items = JsonConvert.DeserializeObject<List<Item>>(json);
-				dynamic array = JsonConvert.DeserializeObject(json);
-				foreach (var item in array)
-				{
-					Console.WriteLine("{0} {1} {2} {3}", item.datasetid, item.recordid, item.fields.departement, item.fields.commune);
-				}
+				dynamic ensembleIntervention = JsonConvert.DeserializeObject(json);
+                foreach (var item in ensembleIntervention)
+                {
+                    Console.WriteLine("{0} {1} {2} {3}", item.datasetid, item.recordid, item.fields.departement, item.fields.commune);
+                }
+                return ensembleIntervention;
 			}
 		}
 
-		/// <summary>
-		/// 
-		/// </summary>
-		public class Item
-		{
-			public string datasetid;
-			public string recordid;
-		}
+		
 
 		/// <summary>
 		/// Affichage de l'aide du programme en cas d'entrée erronée.
@@ -38,7 +33,7 @@ namespace tp10
 		private static void help()
 		{
 			Console.WriteLine("Usage:");
-			Console.WriteLine("tp10 -f nom_du_fichier");
+			Console.WriteLine("tp10.exe -f nom_du_fichier");
 		}
 
 		/// <summary>
@@ -53,9 +48,9 @@ namespace tp10
 				switch (args[0])
 				{
 					case "-f":
-
-						LoadJson(args[1]);
-
+                        dynamic tableauJson;
+                        tableauJson = LoadJson(args[1]);
+                        
 						break;
 					default:
 						help();
