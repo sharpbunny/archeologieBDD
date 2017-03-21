@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace tp10
 {
     /// <summary>
-    /// Classe comprennant les éléments du fichier Json
+    /// Classe décrivant les éléments du fichier Json.
     /// </summary>
     public class Item
     {
