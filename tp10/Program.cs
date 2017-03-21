@@ -49,8 +49,14 @@ namespace tp10
 				{
 					case "-f":
                         dynamic tableauJson;
-                        tableauJson = LoadJson(args[1]);
-                        
+						if (File.Exists(args[1]))
+						{
+							tableauJson = LoadJson(args[1]);
+						}
+						else
+						{
+							Console.WriteLine("Le fichier {0} n'existe pas", args[1]);
+						}
 						break;
 					default:
 						help();
