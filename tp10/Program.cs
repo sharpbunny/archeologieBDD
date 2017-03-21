@@ -25,7 +25,7 @@ namespace tp10
 		static void Main(string[] args)
 		{
 			//Vérification des arguments de la ligne de commande.
-			if (args.Length > 1)
+			if (args.Length > 2)
 			{
 				switch (args[0])
 				{
@@ -34,6 +34,7 @@ namespace tp10
 						if (File.Exists(args[1]))
 						{
 							fichierJson = new JsonFile(args[1]);
+							stockeEnBase(fichierJson);
 						}
 						else
 						{
@@ -51,16 +52,24 @@ namespace tp10
 				help();
 			}
 
+		}
+
+		private static void stockeEnBase(JsonFile fichierJson)
+		{
 			using (archeoContext context = new archeoContext())
 			{
 				context.Configuration.LazyLoadingEnabled = true;
-			}
-			foreach (var item in fichierJson.TableauJson)
-			{
-				Console.WriteLine("{0} {1} {2} {3}", item.datasetid, item.recordid, item.fields.departement, item.fields.commune);
+				foreach (var item in fichierJson.TableauJson)
+				{
+					//Console.WriteLine("{0} {1} {2} {3}", item.datasetid, item.recordid, item.fields.departement, item.fields.commune);
+					// stockage des départements
+
+					// stockage ville
+
+					//suite
+
+				}
 			}
 		}
-
-
 	}
 }
