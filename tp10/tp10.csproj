@@ -81,6 +81,7 @@
     <Compile Include="departement.cs" />
     <Compile Include="intervention.cs" />
     <Compile Include="Item.cs" />
+    <Compile Include="JsonFile.cs" />
     <Compile Include="periode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
