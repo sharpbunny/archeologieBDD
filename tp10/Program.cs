@@ -2,9 +2,8 @@
 using System;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-
+using System.Data.Entity;
 
 
 namespace tp10
@@ -66,31 +65,36 @@ namespace tp10
             string nomDepartement;
 			using (archeoContext context = new archeoContext())
 			{
-				context.Configuration.LazyLoadingEnabled = true;
-
+				//context.Configuration.LazyLoadingEnabled = true;
 				foreach (var itemjson in fichierJson.TableauJson)
 				{
-                    Console.WriteLine(itemjson.fields.departement);
-                    // stockage des départements
-
-                    //Interrogation de la base de donnée en LINQ
-                    //Vérification si la base de données possède déjà le département
-                    nomDepartement = itemjson.fields.departement;
-                    var rechercheNomDep = from b in context.departements
-                                          where b.nom == nomDepartement
-                                          select b;
-                    foreach(var p in rechercheNomDep)
-                    {
-                        Console.WriteLine(p.nom);
-                    }
-                   
+					//Console.WriteLine("{0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12} {13}", item.datasetid, item.recordid, item.fields.departement, item.fields.commune, item.fields.periode_s, item.fields.coordonnee_wgs84, item.fields.nom_du_site, item.fields.date_fin.getType(), item.fields.type_d_intervention, item.fields.date_debut.ToString.getType(), item.geometry.type, item.geometry.coordinates);
+					//Console.WriteLine("{0} {1} {2} {3} {4} {5} {6} {7} {8} {9} ", item.datasetid, item.recordid, item.fields.departement, item.fields.commune, item.fields.periode_s, item.fields.coordonnee_wgs84, item.fields.nom_du_site, item.fields.type_d_intervention, item.geometry.type, item.geometry.coordinates);
+					//Console.WriteLine(item.datasetid + " | " + item.recordid + " | " + item.fields.departement + " | " + item.fields.commune + " | " + item.fields.periode_s + " | " + item.fields.coordonnee_wgs84 + " | " + item.fields.nom_du_site + " | " + item.fields.type_d_intervention + " | " + item.geometry.type + " | " + item.geometry.coordinates);
+					Console.WriteLine(itemjson.fields.departement);
+					// stockage des départements
+					//Interrogation de la base de donnée en LINQ
+					//Vérification si la base de données possède déjà le département
+					nomDepartement = itemjson.fields.departement;
+					var rechercheNomDep = from b in context.departements
+										  where b.nom == nomDepartement
+										  select b;
+					departement dpt = rechercheNomDep.FirstOrDefault();
+					if (dpt == null)
+					{
+						departement departement = new departement();
+						departement.nom = nomDepartement;
+						context.departements.Add(departement);
+						context.SaveChanges();
+					}
+					// stockage ville
+                 
 
                     // stockage ville
 
                     //suite
-                    Console.ReadLine();
 
-					//Console.ReadLine();
+					Console.ReadLine();
 				}
 			}
 		}
