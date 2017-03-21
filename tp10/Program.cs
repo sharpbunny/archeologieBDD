@@ -2,30 +2,12 @@
 using System;
 using Newtonsoft.Json;
 
+
 namespace tp10
 {
 	class Program
 	{
-		/// <summary>
-		/// Chargement du fichier json.
-		/// </summary>
-		public static dynamic LoadJson(string filename)
-		{
-			using (StreamReader r = new StreamReader(filename))
-			{
-                //Variable qui va lire le fichier jusqu'à la fin
-				string json = r.ReadToEnd();
-				//List<Item> items = JsonConvert.DeserializeObject<List<Item>>(json);
-				dynamic ensembleIntervention = JsonConvert.DeserializeObject(json);
-                foreach (var item in ensembleIntervention)
-                {
-                    Console.WriteLine("{0} {1} {2} {3}", item.datasetid, item.recordid, item.fields.departement, item.fields.commune);
-                }
-                return ensembleIntervention;
-			}
-		}
-
-		
+		private static JsonFile fichierJson;
 
 		/// <summary>
 		/// Affichage de l'aide du programme en cas d'entrée erronée.
@@ -48,15 +30,16 @@ namespace tp10
 				switch (args[0])
 				{
 					case "-f":
-                        dynamic tableauJson;
+                        
 						if (File.Exists(args[1]))
 						{
-							tableauJson = LoadJson(args[1]);
+							fichierJson = new JsonFile(args[1]);
 						}
 						else
 						{
 							Console.WriteLine("Le fichier {0} n'existe pas", args[1]);
 						}
+
 						break;
 					default:
 						help();
@@ -67,6 +50,17 @@ namespace tp10
 			{
 				help();
 			}
+
+			using (archeoContext context = new archeoContext())
+			{
+				context.Configuration.LazyLoadingEnabled = true;
+			}
+			foreach (var item in fichierJson.TableauJson)
+			{
+				Console.WriteLine("{0} {1} {2} {3}", item.datasetid, item.recordid, item.fields.departement, item.fields.commune);
+			}
 		}
+
+
 	}
 }
