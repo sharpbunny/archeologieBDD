@@ -189,7 +189,45 @@ namespace tp10
 						idsiteIntervention = itr.ID_site;
 						Console.WriteLine("site d'intervention {0} dans commune {1} existe id: {2}", nomsiteIntervention, nomCommune, idsiteIntervention);
 					}
-					Console.ReadLine();
+
+                    // insertion des thèmes
+                    string periode = itemjson.fields.theme_s;
+                    List<int> idPeriode = new List<int>();
+                    if (periode != null)
+                    {
+                        string[] listePeriode = periode.Split('#');
+                        foreach (var item in listePeriode)
+                        {
+                            if (item != "")
+                            {
+                                var recherchePeriode = from t in context.periodes
+                                                     where t.nom == item
+                                                     select t;
+                                periode existPeriode = recherchePeriode.FirstOrDefault();
+                                if (existPeriode == null)
+                                {
+                                    periode newperiode = new periode();
+                                    Console.WriteLine("Essai d'ajout de {0}", item);
+                                    newperiode.nom = item;
+                                    context.periodes.Add(newperiode);
+                                    context.SaveChanges();
+                                    idPeriode.Add(newperiode.ID_periode);
+                                    Console.WriteLine("Période {0} créé id: {1}", item, newperiode.ID_periode);
+                                }
+                                else
+                                {
+                                    idPeriode.Add(existPeriode.ID_periode);
+                                    Console.WriteLine("Thème {0} existe id: {1}", item, existPeriode.ID_periode);
+                                }
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Pas de thème pour ce chantier.");
+                    }
+                    Console.ReadLine();
 				}
 			}
 		}
