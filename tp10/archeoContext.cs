@@ -22,7 +22,8 @@ namespace tp10
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Commune>()
+		
+			modelBuilder.Entity<Commune>()
                 .Property(e => e.nom)
                 .IsUnicode(false);
 

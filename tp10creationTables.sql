@@ -54,6 +54,7 @@ CREATE TABLE intervention(
 ------------------------------------------------------------*/
 CREATE TABLE periode(
 	ID_periode INT IDENTITY (1,1) NOT NULL ,
+	nom        VARCHAR (40) NOT NULL ,
 	CONSTRAINT prk_constraint_periode PRIMARY KEY NONCLUSTERED (ID_periode)
 );
 
@@ -63,6 +64,7 @@ CREATE TABLE periode(
 ------------------------------------------------------------*/
 CREATE TABLE type_intervention(
 	ID_type INT IDENTITY (1,1) NOT NULL ,
+	nom     VARCHAR (40) NOT NULL ,
 	CONSTRAINT prk_constraint_type_intervention PRIMARY KEY NONCLUSTERED (ID_type)
 );
 
@@ -72,6 +74,7 @@ CREATE TABLE type_intervention(
 ------------------------------------------------------------*/
 CREATE TABLE theme(
 	ID_theme INT IDENTITY (1,1) NOT NULL ,
+	nom      VARCHAR (40) NOT NULL ,
 	CONSTRAINT prk_constraint_theme PRIMARY KEY NONCLUSTERED (ID_theme)
 );
 
