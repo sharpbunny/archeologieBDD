@@ -55,12 +55,12 @@ namespace tp10
 				help();
 			}
 
-			//foreach (var item in fichierJson.TableauJson)
-			//{			
-			//	//Console.WriteLine("{0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12} {13}", item.datasetid, item.recordid, item.fields.departement, item.fields.commune, item.fields.periode_s, item.fields.coordonnee_wgs84, item.fields.nom_du_site, item.fields.date_fin, item.fields.type_d_intervention, item.fields.date_debut, item.geometry.type, item.geometry.coordinates);
-			//	//Console.WriteLine("{0} {1} {2} {3} {4} {5} {6} {7} {8} {9} ", item.datasetid, item.recordid, item.fields.departement, item.fields.commune, item.fields.periode_s, item.fields.coordonnee_wgs84, item.fields.nom_du_site, item.fields.type_d_intervention, item.geometry.type, item.geometry.coordinates);
-			//	Console.WriteLine(item.datasetid +" | "+ item.recordid + " | " + item.fields.departement + " | " + item.fields.commune + " | " + item.fields.periode_s + " | " + item.fields.coordonnee_wgs84 + " | " + item.fields.nom_du_site + " | " + item.fields.type_d_intervention + " | " + item.geometry.type + " | " + item.geometry.coordinates);	
-			//}
+			foreach (var item in fichierJson.TableauJson)
+			{
+				//	//Console.WriteLine("{0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12} {13}", item.datasetid, item.recordid, item.fields.departement, item.fields.commune, item.fields.periode_s, item.fields.coordonnee_wgs84, item.fields.nom_du_site, item.fields.date_fin, item.fields.type_d_intervention, item.fields.date_debut, item.geometry.type, item.geometry.coordinates);
+				//	//Console.WriteLine("{0} {1} {2} {3} {4} {5} {6} {7} {8} {9} ", item.datasetid, item.recordid, item.fields.departement, item.fields.commune, item.fields.periode_s, item.fields.coordonnee_wgs84, item.fields.nom_du_site, item.fields.type_d_intervention, item.geometry.type, item.geometry.coordinates);
+				//	Console.WriteLine(item.datasetid +" | "+ item.recordid + " | " + item.fields.departement + " | " + item.fields.commune + " | " + item.fields.periode_s + " | " + item.fields.coordonnee_wgs84 + " | " + item.fields.nom_du_site + " | " + item.fields.type_d_intervention + " | " + item.geometry.type + " | " + item.geometry.coordinates);	
+			}
 
 		}
 
@@ -81,6 +81,8 @@ namespace tp10
 					string idsiteIntervention = itemjson.recordid;
 					float latiIenterention = itemjson.fields.coordonnee_wgs84[0];
 					float longitudeIenterention = itemjson.fields.coordonnee_wgs84[1];
+					string DateDebut = itemjson.fields.date_debut;
+					string DateFin = itemjson.fields.date_fin;
 
 					// stockage des départements
 					//Interrogation de la base de donnée en LINQ
@@ -223,7 +225,7 @@ namespace tp10
 						Console.WriteLine("site d'intervention {0} dans commune {1} existe id: {2}", nomsiteIntervention, nomCommune, idsiteIntervention);
 					}
 
-                    // insertion des thèmes
+                    // insertion des periodes
                     string periode = itemjson.fields.theme_s;
                     List<int> idPeriode = new List<int>();
                     if (periode != null)
@@ -260,8 +262,29 @@ namespace tp10
                         Console.WriteLine("Pas de période pour ce chantier.");
                     }
 
-					// pause pour avoir le temps de prendre un café.
-                    Console.ReadLine();
+
+					//Ajout de l'intervention
+
+					var uneIntervention = from actionIntervention in context.interventions
+										  where idsiteIntervention  == actionIntervention.ID_site
+										  select actionIntervention;
+					intervention actinter = uneIntervention.FirstOrDefault();
+					if(actinter==null)
+					{
+						intervention insererLintervention = new intervention();
+						insererLintervention.date_debut = itemjson.fields.date_debut;
+						insererLintervention.date_fin = itemjson.fields.date_fin;
+						insererLintervention.ID_site = idsiteIntervention;
+						context.interventions.Add(insererLintervention);
+						context.SaveChanges();
+						Console.WriteLine(" l'intervention du {0} au {1} a été inséré :",insererLintervention.date_debut, insererLintervention.date_fin);						
+					}
+					else
+					{
+						Console.WriteLine("Cette intervention a déja été enregistré. Pas de clé étrangère associée");
+					}
+
+					Console.ReadLine();
 				}
 			}
 		}
