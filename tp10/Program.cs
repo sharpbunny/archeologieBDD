@@ -82,10 +82,6 @@ namespace tp10
 					float latiIenterention = itemjson.fields.coordonnee_wgs84[0];
 					float longitudeIenterention = itemjson.fields.coordonnee_wgs84[1];
 
-					//Console.WriteLine("{0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12} {13}", item.datasetid, item.recordid, item.fields.departement, item.fields.commune, item.fields.periode_s, item.fields.coordonnee_wgs84, item.fields.nom_du_site, item.fields.date_fin.getType(), item.fields.type_d_intervention, item.fields.date_debut.ToString.getType(), item.geometry.type, item.geometry.coordinates);
-					//Console.WriteLine("{0} {1} {2} {3} {4} {5} {6} {7} {8} {9} ", item.datasetid, item.recordid, item.fields.departement, item.fields.commune, item.fields.periode_s, item.fields.coordonnee_wgs84, item.fields.nom_du_site, item.fields.type_d_intervention, item.geometry.type, item.geometry.coordinates);
-					//Console.WriteLine(item.datasetid + " | " + item.recordid + " | " + item.fields.departement + " | " + item.fields.commune + " | " + item.fields.periode_s + " | " + item.fields.coordonnee_wgs84 + " | " + item.fields.nom_du_site + " | " + item.fields.type_d_intervention + " | " + item.geometry.type + " | " + item.geometry.coordinates);
-
 					// stockage des départements
 					//Interrogation de la base de donnée en LINQ
 					//Vérification si la base de données possède déjà le département
@@ -167,6 +163,43 @@ namespace tp10
 						Console.WriteLine("Pas de thème pour ce chantier.");
 					}
 
+					// insertion des types d'intervention
+					string typesIntervention = itemjson.fields.type_d_intervention;
+					List<int> idTypeIntervention = new List<int>();
+					if (typesIntervention != null)
+					{
+						string[] listeTypesIntervention = typesIntervention.Split('#');
+						foreach (var item in listeTypesIntervention)
+						{
+							if (item != "")
+							{
+								var rechercheType = from t in context.type_intervention
+													 where t.nom == item
+													 select t;
+								type_intervention existType = rechercheType.FirstOrDefault();
+								if (existType == null)
+								{
+									type_intervention newtype = new type_intervention();
+									newtype.nom = item;
+									context.type_intervention.Add(newtype);
+									context.SaveChanges();
+									idTheme.Add(newtype.ID_type);
+									Console.WriteLine("Type d'intervention {0} créé id: {1}", item, newtype.ID_type);
+								}
+								else
+								{
+									idTheme.Add(existType.ID_type);
+									Console.WriteLine("Type d'intervention {0} existe id: {1}", item, existType.ID_type);
+								}
+
+							}
+						}
+					}
+					else
+					{
+						Console.WriteLine("Pas de type d'intervention pour ce chantier.");
+					}
+
 					// insertion site intervention
 					var rechercheSiteIntervention = from site in context.site_intervention
 													where site.ID_site == idsiteIntervention
@@ -207,7 +240,6 @@ namespace tp10
                                 if (existPeriode == null)
                                 {
                                     periode newperiode = new periode();
-                                    Console.WriteLine("Essai d'ajout de {0}", item);
                                     newperiode.nom = item;
                                     context.periodes.Add(newperiode);
                                     context.SaveChanges();
@@ -217,7 +249,7 @@ namespace tp10
                                 else
                                 {
                                     idPeriode.Add(existPeriode.ID_periode);
-                                    Console.WriteLine("Thème {0} existe id: {1}", item, existPeriode.ID_periode);
+                                    Console.WriteLine("Période {0} existe id: {1}", item, existPeriode.ID_periode);
                                 }
 
                             }
@@ -225,8 +257,10 @@ namespace tp10
                     }
                     else
                     {
-                        Console.WriteLine("Pas de thème pour ce chantier.");
+                        Console.WriteLine("Pas de période pour ce chantier.");
                     }
+
+					// pause pour avoir le temps de prendre un café.
                     Console.ReadLine();
 				}
 			}
