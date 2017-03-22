@@ -137,25 +137,28 @@ namespace tp10
 						string[] listeTheme = theme.Split('#');
 						foreach (var item in listeTheme)
 						{
-							Console.WriteLine(item);
-							var rechercheTheme = from t in context.themes
-												 where t.nom == item
-												 select t;
-							theme existTheme = rechercheTheme.FirstOrDefault();
-							if (existTheme == null)
+							if (item!="")
 							{
-								theme newtheme = new theme();
-								Console.WriteLine("Essai d'ajout de {0}", item);
-								newtheme.nom = item;
-								context.themes.Add(newtheme);
-								context.SaveChanges();
-								idTheme.Add(newtheme.ID_theme);
-								Console.WriteLine("Thème {0} créé id: {1}", item, newtheme.ID_theme);
-							}
-							else
-							{
-								idTheme.Add(existTheme.ID_theme);
-								Console.WriteLine("Thème {0} existe id: {1}", item, existTheme.ID_theme);
+								var rechercheTheme = from t in context.themes
+													 where t.nom == item
+													 select t;
+								theme existTheme = rechercheTheme.FirstOrDefault();
+								if (existTheme == null)
+								{
+									theme newtheme = new theme();
+									Console.WriteLine("Essai d'ajout de {0}", item);
+									newtheme.nom = item;
+									context.themes.Add(newtheme);
+									context.SaveChanges();
+									idTheme.Add(newtheme.ID_theme);
+									Console.WriteLine("Thème {0} créé id: {1}", item, newtheme.ID_theme);
+								}
+								else
+								{
+									idTheme.Add(existTheme.ID_theme);
+									Console.WriteLine("Thème {0} existe id: {1}", item, existTheme.ID_theme);
+								}
+
 							}
 						}
 					}
