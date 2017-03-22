@@ -11,23 +11,7 @@ namespace tp10
 	class Program
 	{
 		private static JsonFile fichierJson;
-
-		private static string _fichierJson= "C:/Users/34011-14-02/Documents/waldodevgitbash/archeologieBDD/tp10/bin/Debug/listIntervention.json";
-
-		private Dictionary<int,string> datasetid = new Dictionary<int,string>();
-		private string[] recordid;
-		private string[] fields;
-		private double[] fieldscoordonnee_wgs84;
-		private int[] fieldsdate;
-		private string[] geometry;
-		private double[] geometrycoordinates;
-		private double[] record_timestamp;
-
-		//private static List<JsonFile> collection=new List<JsonFile>();
-		//private static string _fichierJson= "C:/Users/34011-14-02/Documents/waldodevgitbash/archeologieBDD/tp10/bin/Debug/listIntervention.json";
-		
-		//private List<JsonFile> collection=new List<JsonFile>();
-		
+						
 		/// <summary>
 		/// Affichage de l'aide du programme en cas d'entrée erronée.
 		/// </summary>
@@ -68,7 +52,7 @@ namespace tp10
 			}
 			else
 			{
-				fichierJson = new JsonFile(_fichierJson);
+				help();
 			}
 
 			//foreach (var item in fichierJson.TableauJson)
@@ -94,7 +78,7 @@ namespace tp10
 					string nomCommune = itemjson.fields.commune;
 					int idCommune;
 					string nomsiteIntervention = itemjson.fields.nom_du_site;
-					string idsiteInterention = itemjson.recordid;
+					string idsiteIntervention = itemjson.recordid;
 					float latiIenterention = itemjson.fields.coordonnee_wgs84[0];
 					float longitudeIenterention = itemjson.fields.coordonnee_wgs84[1];
 
@@ -148,23 +132,25 @@ namespace tp10
 					// suite
 
 					var rechercheSiteIntervention = from site in context.site_intervention
-													where site.ID_site == idsiteInterention
+													where site.ID_site == idsiteIntervention
 													select site;
 					site_intervention itr = rechercheSiteIntervention.FirstOrDefault();
 					if (itr == null)
 					{
 						site_intervention siteIntervention = new site_intervention();
-						siteIntervention.ID_site = idsiteInterention;
+						siteIntervention.ID_site = idsiteIntervention;
 						siteIntervention.nom_site = nomsiteIntervention;
 						siteIntervention.latitude = latiIenterention;
 						siteIntervention.longitude = longitudeIenterention;
 						siteIntervention.ID_commune = idCommune;
 						context.site_intervention.Add(siteIntervention);
-						context.SaveChanges();				
+						context.SaveChanges();
+						Console.WriteLine("site d'intervention {0} dans commune {1} créée id: {2}", nomsiteIntervention, nomCommune, idsiteIntervention);
 					}
 					else
 					{
-						idsiteInterention = itr.ID_site;
+						idsiteIntervention = itr.ID_site;
+						Console.WriteLine("site d'intervention {0} dans commune {1} existe id: {2}", nomsiteIntervention, nomCommune, idsiteIntervention);
 					}
 					Console.ReadLine();
 				}
