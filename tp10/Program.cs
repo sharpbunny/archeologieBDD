@@ -110,8 +110,8 @@ namespace tp10
 
 					// stockage ville
 					var rechercheNomVille = from c in context.Communes
-										  where c.nom == nomCommune && c.ID_departement == idDepartement
-										  select c;
+											where c.nom == nomCommune && c.ID_departement == idDepartement
+											select c;
 					Commune cmn = rechercheNomVille.FirstOrDefault();
 					if (cmn == null)
 					{
@@ -129,8 +129,45 @@ namespace tp10
 						Console.WriteLine("Commune {0} dans département {1} existe id: {2}", nomCommune, nomDepartement, idCommune);
 					}
 
-					// suite
+					// insertion des thèmes
+					string theme = itemjson.fields.theme_s;
+					List<int> idTheme = new List<int>();
+					if (theme != null)
+					{
+						string[] listeTheme = theme.Split('#');
+						foreach (var item in listeTheme)
+						{
+							if (item!="")
+							{
+								var rechercheTheme = from t in context.themes
+													 where t.nom == item
+													 select t;
+								theme existTheme = rechercheTheme.FirstOrDefault();
+								if (existTheme == null)
+								{
+									theme newtheme = new theme();
+									Console.WriteLine("Essai d'ajout de {0}", item);
+									newtheme.nom = item;
+									context.themes.Add(newtheme);
+									context.SaveChanges();
+									idTheme.Add(newtheme.ID_theme);
+									Console.WriteLine("Thème {0} créé id: {1}", item, newtheme.ID_theme);
+								}
+								else
+								{
+									idTheme.Add(existTheme.ID_theme);
+									Console.WriteLine("Thème {0} existe id: {1}", item, existTheme.ID_theme);
+								}
 
+							}
+						}
+					}
+					else
+					{
+						Console.WriteLine("Pas de thème pour ce chantier.");
+					}
+
+					// insertion site intervention
 					var rechercheSiteIntervention = from site in context.site_intervention
 													where site.ID_site == idsiteIntervention
 													select site;
