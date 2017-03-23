@@ -23,8 +23,47 @@ namespace InterfaceClient
 		public MainWindow()
 		{
 			InitializeComponent();
-			var requete = new tp10.archeoContext();
+
+            ChargmentDonnees();
 
 		}
-	}
+
+        private void triCommune_Click(object sender, RoutedEventArgs e)
+        {
+            
+
+
+        }
+
+        private List<tp10.site_intervention>ChargmentDonnees()
+        {
+            List<tp10.site_intervention> siteInterventions = new List<tp10.site_intervention>();
+            using (tp10.archeoContext contextSiteIntervention = new tp10.archeoContext())
+            {
+                var seeAll = from u in contextSiteIntervention.site_intervention
+                             select u;
+                foreach(var item in seeAll)
+                {
+                    siteInterventions.Add(new tp10.site_intervention() {
+
+                        nom_site = item.nom_site,
+
+                        periodes = item.periodes,
+
+                        themes = item.themes,
+
+                        latitude = item.latitude,
+
+                        longitude = item.longitude
+                        });
+                }
+
+                return siteInterventions;
+
+            }
+            
+            
+        }
+
+    }
 }
