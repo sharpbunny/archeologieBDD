@@ -19,7 +19,7 @@ namespace tp10
         public int ID_theme { get; set; }
 
         [Required]
-        [StringLength(40)]
+        [StringLength(150)]
         public string nom { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

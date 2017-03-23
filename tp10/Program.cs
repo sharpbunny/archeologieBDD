@@ -272,7 +272,9 @@ namespace tp10
 					if(actinter==null)
 					{
 						intervention insererLintervention = new intervention();
+                        if(itemjson.fields.date_debut != null)
 						insererLintervention.date_debut = itemjson.fields.date_debut;
+                        if(itemjson.fields.date_fin != null)
 						insererLintervention.date_fin = itemjson.fields.date_fin;
 						insererLintervention.ID_site = idsiteIntervention;
 						context.interventions.Add(insererLintervention);
@@ -284,8 +286,10 @@ namespace tp10
 						Console.WriteLine("Cette intervention a déja été enregistré. Pas de clé étrangère associée");
 					}
 
-					Console.ReadLine();
+					
 				}
+                Console.WriteLine("Done!");
+                Console.ReadLine();
 			}
 		}
 
