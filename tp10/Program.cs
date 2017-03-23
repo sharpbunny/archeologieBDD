@@ -285,7 +285,7 @@ namespace tp10
 						insererLintervention.date_fin = itemjson.fields.date_fin;
 						insererLintervention.ID_site = idsiteIntervention;
 						context.interventions.Add(insererLintervention);
-						//context.SaveChanges();
+						context.SaveChanges();
 						Console.WriteLine(" l'intervention du {0} au {1} a été inséré :",insererLintervention.date_debut, insererLintervention.date_fin);						
 					}
 					else
