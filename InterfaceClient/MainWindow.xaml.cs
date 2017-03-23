@@ -24,7 +24,7 @@ namespace InterfaceClient
 		{
 			InitializeComponent();
 
-            ChargmentDonnees();
+            affichageDonnees.ItemsSource = ChargmentDonnees();
 
 		}
 
@@ -35,6 +35,10 @@ namespace InterfaceClient
 
         }
 
+        /// <summary>
+        /// Permet de charger les données des sites d'interventions depuis la BDD.
+        /// </summary>
+        /// <returns>Liste des interventions</returns>
         private List<tp10.site_intervention>ChargmentDonnees()
         {
             List<tp10.site_intervention> siteInterventions = new List<tp10.site_intervention>();
@@ -45,6 +49,8 @@ namespace InterfaceClient
                 foreach(var item in seeAll)
                 {
                     siteInterventions.Add(new tp10.site_intervention() {
+
+                        ID_site = "hidden",
 
                         nom_site = item.nom_site,
 
