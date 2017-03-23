@@ -7,8 +7,37 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="480" Width="640">
     <Grid>
-        <DataGrid x:Name="affichageDonnees" HorizontalAlignment="Left" Margin="180,10,0,0" VerticalAlignment="Top" Height="430" Width="442"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="24" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Menu x:Name="menu" Height="24" VerticalAlignment="Top" VerticalContentAlignment="Bottom" Panel.ZIndex="1">
+                <MenuItem Header="_Fichier">
+                    <MenuItem x:Name="MenuParametres" Header="_Paramètres" Click="MenuParametres_Click" />
+                    <Separator />
+                    <MenuItem Header="_Quitter" Click="MenuItem_Click" />
+                </MenuItem>
+                <MenuItem Header="_?">
+                    <MenuItem Header="_Aide" />
+                    <Separator />
+                    <MenuItem Header="_A Propos" />
+                </MenuItem>
+            </Menu>
+        </Grid>
+        <Grid Grid.Row="1">
+        <DataGrid x:Name="affichageDonnees" Margin="180,10,0,0"/>
         <Button x:Name="triCommune" Content="Ascendant" HorizontalAlignment="Left" Margin="50,35,0,0" VerticalAlignment="Top" Width="75" Click="triCommune_Click"/>
+        </Grid>
+        <Grid Grid.Row="2">
+            <StatusBar Height="24" Margin="0" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom">
+                <Label x:Name="txtStatus" Content="" Width="67" FontFamily="Courier New" VerticalAlignment="Center" FontSize="10"/>
+            </StatusBar>
+        </Grid>
 
     </Grid>
 </Window>
