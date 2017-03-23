@@ -129,11 +129,11 @@ namespace tp10
 
 					// insertion des thèmes
 					string theme = itemjson.fields.theme_s;
-					List<int> idTheme = new List<int>();
+					List<theme> listTheme = new List<theme>();
 					if (theme != null)
 					{
-						string[] listeTheme = theme.Split('#');
-						foreach (var item in listeTheme)
+						string[] detailTheme = theme.Split('#');
+						foreach (var item in detailTheme)
 						{
 							if (item!="")
 							{
@@ -148,12 +148,12 @@ namespace tp10
 									newtheme.nom = item;
 									context.themes.Add(newtheme);
 									context.SaveChanges();
-									idTheme.Add(newtheme.ID_theme);
+									listTheme.Add(newtheme);
 									Console.WriteLine("Thème {0} créé id: {1}", item, newtheme.ID_theme);
 								}
 								else
 								{
-									idTheme.Add(existTheme.ID_theme);
+									listTheme.Add(existTheme);
 									Console.WriteLine("Thème {0} existe id: {1}", item, existTheme.ID_theme);
 								}
 
@@ -167,7 +167,7 @@ namespace tp10
 
 					// insertion des types d'intervention
 					string typesIntervention = itemjson.fields.type_d_intervention;
-					List<int> idTypeIntervention = new List<int>();
+					List<type_intervention> listTypeIntervention = new List<type_intervention>();
 					if (typesIntervention != null)
 					{
 						string[] listeTypesIntervention = typesIntervention.Split('#');
@@ -185,12 +185,12 @@ namespace tp10
 									newtype.nom = item;
 									context.type_intervention.Add(newtype);
 									context.SaveChanges();
-									idTheme.Add(newtype.ID_type);
+									listTypeIntervention.Add(newtype);
 									Console.WriteLine("Type d'intervention {0} créé id: {1}", item, newtype.ID_type);
 								}
 								else
 								{
-									idTheme.Add(existType.ID_type);
+									listTypeIntervention.Add(existType);
 									Console.WriteLine("Type d'intervention {0} existe id: {1}", item, existType.ID_type);
 								}
 
@@ -215,7 +215,13 @@ namespace tp10
 						siteIntervention.latitude = latiIenterention;
 						siteIntervention.longitude = longitudeIenterention;
 						siteIntervention.ID_commune = idCommune;
+
+						siteIntervention.themes = listTheme;
+						siteIntervention.type_intervention = listTypeIntervention;
+						
 						context.site_intervention.Add(siteIntervention);
+
+
 						context.SaveChanges();
 						Console.WriteLine("site d'intervention {0} dans commune {1} créée id: {2}", nomsiteIntervention, nomCommune, idsiteIntervention);
 					}
@@ -272,11 +278,11 @@ namespace tp10
 					if(actinter==null)
 					{
 						intervention insererLintervention = new intervention();
-						insererLintervention.date_debut = itemjson.fields.date_debut;
-						insererLintervention.date_fin = itemjson.fields.date_fin;
+						//insererLintervention.date_debut = itemjson.fields.date_debut;
+						//insererLintervention.date_fin = itemjson.fields.date_fin;
 						insererLintervention.ID_site = idsiteIntervention;
 						context.interventions.Add(insererLintervention);
-						context.SaveChanges();
+						//context.SaveChanges();
 						Console.WriteLine(" l'intervention du {0} au {1} a été inséré :",insererLintervention.date_debut, insererLintervention.date_fin);						
 					}
 					else

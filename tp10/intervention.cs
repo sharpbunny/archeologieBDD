@@ -12,9 +12,9 @@ namespace tp10
         [Key]
         public int id_intervention { get; set; }
 
-        public DateTime date_debut { get; set; }
+        public DateTime? date_debut { get; set; }
 
-        public DateTime date_fin { get; set; }
+        public DateTime? date_fin { get; set; }
 
         [Required]
         [StringLength(40)]
