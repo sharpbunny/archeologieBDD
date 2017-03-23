@@ -18,11 +18,11 @@ namespace tp10
         }
 
         [Key]
-        [StringLength(40)]
+        [StringLength(100)]
         public string ID_site { get; set; }
 
         [Required]
-        [StringLength(60)]
+        [StringLength(150)]
         public string nom_site { get; set; }
 
         public float latitude { get; set; }
