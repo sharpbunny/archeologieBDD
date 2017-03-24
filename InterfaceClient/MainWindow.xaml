@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InterfaceClient"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1280" ResizeMode="NoResize">
+        Title="Archeologist" Height="720" Width="1280" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="24" />
@@ -20,24 +20,31 @@
                 <MenuItem Header="_Fichier">
                     <MenuItem x:Name="MenuParametres" Header="_Paramètres" Click="MenuParametres_Click" />
                     <Separator />
-                    <MenuItem Header="_Quitter"/>
+                    <MenuItem Header="_Quitter" Click="MenuQuitter_Click" />
                 </MenuItem>
                 <MenuItem Header="_?">
                     <MenuItem Header="_Aide" />
                     <Separator />
-                    <MenuItem Header="_A Propos" />
+                    <MenuItem Header="_A Propos" Click="MenuAbout_Click" />
                 </MenuItem>
             </Menu>
         </Grid>
         <Grid Grid.Row="1">
-        <DataGrid x:Name="affichageDonnees" Margin="180,10,0,0" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False"/>
+            <DataGrid  ItemsSource="{Binding archeologyData}" AutoGenerateColumns="False" Margin="180,0,0,0" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Ligne" Binding="{Binding LineNumber}"/>
+                    <DataGridTextColumn Header="Nom du site" Binding="{Binding NomSite}"/>
+                    <DataGridTextColumn Header="Commune" Binding="{Binding NomCommune}"/>
+                    <DataGridTextColumn Header="Latitude" Binding="{Binding Latitude}"/>
+                    <DataGridTextColumn Header="Longitude" Binding="{Binding Longitude}"/>
+                </DataGrid.Columns>
+            </DataGrid>
         <Button x:Name="triCommune" Content="Ascendant" HorizontalAlignment="Left" Margin="50,35,0,0" VerticalAlignment="Top" Width="75" Click="triCommune_Click"/>
-        </Grid>
+       </Grid>
         <Grid Grid.Row="2">
             <StatusBar Height="24" Margin="0" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom">
                 <Label x:Name="txtStatus" Content="" Width="67" FontFamily="Courier New" VerticalAlignment="Center" FontSize="10"/>
             </StatusBar>
         </Grid>
-
     </Grid>
 </Window>
