@@ -109,21 +109,23 @@ namespace InterfaceClient
 									 latitude = site.latitude,
 									 longitude = site.longitude
 								 };
+
+					int line = 1;
 					foreach (var item in seeAll)
 					{
 						var_dump(item);
 
-						archeologyData.Add(new ArcheoData(1, item.nom_site, item.Commune.nom, item.latitude, item.longitude));
+						archeologyData.Add(new ArcheoData(line, item.nom_site, item.Commune.nom, item.latitude, item.longitude));
+						line++;
 
-						
-							//ID_site = item.ID_site,
-							//nom_site = item.nom_site,
-							//periodes = item.periodes,
-							//ID_commune = item.IDcommune,
-							//Commune = item.Commune,
-							//themes = item.themes,
-							//latitude = item.latitude,
-							//longitude = item.longitude
+						//ID_site = item.ID_site,
+						//nom_site = item.nom_site,
+						//periodes = item.periodes,
+						//ID_commune = item.IDcommune,
+						//Commune = item.Commune,
+						//themes = item.themes,
+						//latitude = item.latitude,
+						//longitude = item.longitude
 						
 					}
 
