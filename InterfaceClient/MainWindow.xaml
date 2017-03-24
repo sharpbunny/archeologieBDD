@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InterfaceClient"
         mc:Ignorable="d"
-        Title="MainWindow" Height="480" Width="640">
+        Title="MainWindow" Height="720" Width="1280" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="24" />
@@ -20,7 +20,7 @@
                 <MenuItem Header="_Fichier">
                     <MenuItem x:Name="MenuParametres" Header="_Paramètres" Click="MenuParametres_Click" />
                     <Separator />
-                    <MenuItem Header="_Quitter" Click="MenuItem_Click" />
+                    <MenuItem Header="_Quitter"/>
                 </MenuItem>
                 <MenuItem Header="_?">
                     <MenuItem Header="_Aide" />
@@ -30,7 +30,7 @@
             </Menu>
         </Grid>
         <Grid Grid.Row="1">
-        <DataGrid x:Name="affichageDonnees" Margin="180,10,0,0"/>
+        <DataGrid x:Name="affichageDonnees" Margin="180,10,0,0" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False"/>
         <Button x:Name="triCommune" Content="Ascendant" HorizontalAlignment="Left" Margin="50,35,0,0" VerticalAlignment="Top" Width="75" Click="triCommune_Click"/>
         </Grid>
         <Grid Grid.Row="2">
