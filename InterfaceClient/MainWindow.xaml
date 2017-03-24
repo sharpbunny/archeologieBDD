@@ -20,7 +20,7 @@
                 <MenuItem Header="_Fichier">
                     <MenuItem x:Name="MenuParametres" Header="_Paramètres" Click="MenuParametres_Click" />
                     <Separator />
-                    <MenuItem Header="_Quitter"/>
+                    <MenuItem Header="_Quitter" Click="MenuQuitter_Click" />
                 </MenuItem>
                 <MenuItem Header="_?">
                     <MenuItem Header="_Aide" />

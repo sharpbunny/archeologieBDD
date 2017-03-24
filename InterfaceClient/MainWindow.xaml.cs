@@ -140,7 +140,7 @@ namespace InterfaceClient
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void MenuItem_Click(object sender, RoutedEventArgs e)
+		private void MenuQuitter_Click(object sender, RoutedEventArgs e)
 		{
 			Application.Current.Shutdown();
 		}
