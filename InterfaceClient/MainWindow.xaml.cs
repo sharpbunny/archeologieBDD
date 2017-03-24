@@ -48,18 +48,32 @@ namespace InterfaceClient
 			{
 				try
 				{
-					var seeAll = from u in contextSiteIntervention.site_intervention
-								 select u;
+					var seeAll = from site in contextSiteIntervention.site_intervention
+								 join commune in contextSiteIntervention.Communes
+								 on site.ID_commune equals commune.ID_commune
+								 select new
+								 {
+									 ID_site = site.ID_site,
+									 nom_site = site.nom_site,
+									 periodes = site.periodes,
+									 IDcommune = site.ID_commune,
+									 Commune = commune.nom,
+									 themes = site.themes,
+									 latitude = site.latitude,
+									 longitude = site.longitude
+								 };
 					foreach (var item in seeAll)
 					{
-						siteInterventions.Add(new tp10.site_intervention()
+						siteInterventions.Add(new site_intervention()
 						{
 
-							ID_site = "hidden",
+							ID_site = item.ID_site,
 
 							nom_site = item.nom_site,
 
 							periodes = item.periodes,
+							ID_commune = item.IDcommune,
+							Commune = item.Commune.ElementAt(0),
 
 							themes = item.themes,
 
