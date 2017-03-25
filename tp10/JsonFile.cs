@@ -14,15 +14,9 @@ namespace tp10
 			TableauJson = LoadJson(Nomfichier);
 		}
 
-		public string Nomfichier
-		{
-			get; set;
-		}
+		public string Nomfichier { get; set; }
 
-		public dynamic TableauJson
-		{
-			get; set;
-		}
+		public dynamic TableauJson { get; set; }
 
 		/// <summary>
 		/// Chargement du fichier json.

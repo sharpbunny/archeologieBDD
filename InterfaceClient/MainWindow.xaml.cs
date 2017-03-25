@@ -98,7 +98,7 @@ namespace InterfaceClient
 									 longitude = site.longitude
 								 };
 
-					int line = 1;
+					int line = 1
 					foreach (var item in seeAll)
 					{
 						var_dump(item);
