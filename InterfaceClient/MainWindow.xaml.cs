@@ -38,9 +38,7 @@ namespace InterfaceClient
 
 		private void triCommune_Click(object sender, RoutedEventArgs e)
 		{
-
-
-
+			throw new NotSupportedException();
 		}
 
 		/// <summary>
@@ -99,22 +97,6 @@ namespace InterfaceClient
 								 };
 
 					int line = 1;
-					if (true)
-					{
-						if (true)
-						{
-							if (true)
-							{
-								if (true)
-								{
-									if (true)
-									{
-										line = 1;
-									}
-								}
-							}
-						}
-					}
 					foreach (var item in seeAll)
 					{
 						var_dump(item);
