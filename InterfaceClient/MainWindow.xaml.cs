@@ -42,66 +42,35 @@ namespace InterfaceClient
 
 
 		}
+
+		/// <summary>
+		/// 
+		/// </summary>
 		public class ArcheoData
 		{
-			private int _lineNumber;
-			private string _idline;
-			private string _nomsite;
-			private string _nomcommune;
-			private float _latitude;
-			private float _longitude;
 
 			public ArcheoData(int line, string id, string no, string co, float lat, float lon)
 			{
-				_lineNumber = line;
-				_idline = id;
-				_nomsite = no;
-				_nomcommune = co;
-				_latitude = lat;
-				_longitude = lon;
+				LineNumber = line;
+				IDLigne = id;
+				NomSite = no;
+				NomCommune = co;
+				Latitude = lat;
+				Longitude = lon;
 			}
-			public int LineNumber
-			{
-				get
-				{
-					return _lineNumber;
-				}
-				set
-				{
-					_lineNumber = value;
-				}
-			}
-			public string IDLigne
-			{
-				get
-				{
-					return _idline;
-				}
-				set
-				{
-					_idline = value;
-				}
-			}
-			public string NomSite
-			{
-				get { return _nomsite; }
-				set { _nomsite = value; }
-			}
-			public string NomCommune
-			{
-				get { return _nomcommune; }
-				set { _nomcommune = value; }
-			}
-			public float Latitude
-			{
-				get { return _latitude; }
-				set { _latitude = value; }
-			}
-			public float Longitude
-			{
-				get { return _longitude; }
-				set { _longitude = value; }
-			}
+
+			public int LineNumber { get; set; }
+
+			public string IDLigne { get; set; }
+
+			public string NomSite { get; set; }
+
+			public string NomCommune { get; set; }
+
+			public float Latitude { get; set; }
+
+			public float Longitude { get; set; }
+
 		}
 
 		/// <summary>
