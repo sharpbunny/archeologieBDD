@@ -45,14 +45,16 @@ namespace InterfaceClient
 		public class ArcheoData
 		{
 			private int _lineNumber;
+			private string _idline;
 			private string _nomsite;
 			private string _nomcommune;
 			private float _latitude;
 			private float _longitude;
 
-			public ArcheoData(int line, string no, string co, float lat, float lon)
+			public ArcheoData(int line, string id, string no, string co, float lat, float lon)
 			{
 				_lineNumber = line;
+				_idline = id;
 				_nomsite = no;
 				_nomcommune = co;
 				_latitude = lat;
@@ -60,8 +62,25 @@ namespace InterfaceClient
 			}
 			public int LineNumber
 			{
-				get { return _lineNumber; }
-				set { _lineNumber = value; }
+				get
+				{
+					return _lineNumber;
+				}
+				set
+				{
+					_lineNumber = value;
+				}
+			}
+			public string IDLigne
+			{
+				get
+				{
+					return _idline;
+				}
+				set
+				{
+					_idline = value;
+				}
 			}
 			public string NomSite
 			{
@@ -115,7 +134,7 @@ namespace InterfaceClient
 					{
 						var_dump(item);
 
-						archeologyData.Add(new ArcheoData(line, item.nom_site, item.Commune.nom, item.latitude, item.longitude));
+						archeologyData.Add(new ArcheoData(line, item.ID_site, item.nom_site, item.Commune.nom, item.latitude, item.longitude));
 						line++;
 
 						//ID_site = item.ID_site,
@@ -132,7 +151,7 @@ namespace InterfaceClient
 				}
 				catch (Exception err)
 				{
-					MessageBox.Show(ConfigurationManager.ConnectionStrings["archeoContext"].ToString() + "\nLa connexion n'est pas valide" + err.Message, "Serveur/Database Incorrect");
+					MessageBox.Show(ConfigurationManager.ConnectionStrings["archeoContext"].ToString() + "\nLa connexion n'est pas valide.\n" + err.Message, "Serveur/Database Incorrect");
 				}
 			}
 		}

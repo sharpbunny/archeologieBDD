@@ -33,6 +33,7 @@
             <DataGrid  ItemsSource="{Binding archeologyData}" AutoGenerateColumns="False" Margin="180,0,0,0" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Ligne" Binding="{Binding LineNumber}"/>
+                    <DataGridTextColumn Header="ID Ligne" Binding="{Binding LineNumber}" Visibility="Hidden"/>
                     <DataGridTextColumn Header="Nom du site" Binding="{Binding NomSite}"/>
                     <DataGridTextColumn Header="Commune" Binding="{Binding NomCommune}"/>
                     <DataGridTextColumn Header="Latitude" Binding="{Binding Latitude}"/>
