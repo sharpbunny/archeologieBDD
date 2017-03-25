@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InterfaceClient"
         mc:Ignorable="d"
-        Title="Archeologist" Height="720" Width="1280" ResizeMode="NoResize">
+        Title="Archeologist" Height="720" Width="1280">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="24" />
@@ -33,10 +33,23 @@
             <DataGrid  ItemsSource="{Binding archeologyData}" AutoGenerateColumns="False" Margin="180,0,0,0" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Ligne" Binding="{Binding LineNumber}"/>
+                    <DataGridTextColumn Header="ID Ligne" Binding="{Binding LineNumber}" Visibility="Hidden"/>
                     <DataGridTextColumn Header="Nom du site" Binding="{Binding NomSite}"/>
                     <DataGridTextColumn Header="Commune" Binding="{Binding NomCommune}"/>
                     <DataGridTextColumn Header="Latitude" Binding="{Binding Latitude}"/>
                     <DataGridTextColumn Header="Longitude" Binding="{Binding Longitude}"/>
+                    <DataGridTemplateColumn Header="Thèmes" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Theme}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <ComboBox Height="22" SelectedItem="{Binding Theme}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         <Button x:Name="triCommune" Content="Ascendant" HorizontalAlignment="Left" Margin="50,35,0,0" VerticalAlignment="Top" Width="75" Click="triCommune_Click"/>

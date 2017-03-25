@@ -279,10 +279,14 @@ namespace tp10
 					if(actinter==null)
 					{
 						intervention insererLintervention = new intervention();
-                        if(itemjson.fields.date_debut != null)
-						insererLintervention.date_debut = itemjson.fields.date_debut;
-                        if(itemjson.fields.date_fin != null)
-						insererLintervention.date_fin = itemjson.fields.date_fin;
+						if (itemjson.fields.date_debut != null)
+						{
+							insererLintervention.date_debut = itemjson.fields.date_debut;
+						}
+						if (itemjson.fields.date_fin != null)
+						{
+							insererLintervention.date_fin = itemjson.fields.date_fin;
+						}
 						insererLintervention.ID_site = idsiteIntervention;
 						context.interventions.Add(insererLintervention);
 						context.SaveChanges();
