@@ -51,10 +51,8 @@ namespace InterfaceClient
 				SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM dbo.Commune", Db);
 				DataTable dt = new DataTable();
 				da.Fill(dt);
-				//comboBox.DataSource = dt;
 				comboBox.Items.Add("azerty");
 				comboBox.SelectedIndex = 0;
-				//comboBox.DisplayMember = "nom";
 			}
 			catch (Exception err)
 			{
