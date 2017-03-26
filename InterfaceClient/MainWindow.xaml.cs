@@ -121,7 +121,21 @@ namespace InterfaceClient
 						var_dump(item);
 						string themes = "a b c";
 						var_dump(item.listIntervention);
-						archeologyData.Add(new ArcheoData(line, item.ID_site, item.nom_site, item.Commune.nom, item.Departement.nom, item.latitude, item.longitude, item.listIntervention.date_debut, item.listIntervention.date_fin, themes));
+						archeologyData.Add
+						(
+							new ArcheoData
+							(
+								line, item.ID_site,
+								item.nom_site,
+								item.Commune.nom,
+								item.Departement.nom,
+								item.latitude,
+								item.longitude,
+								item.listIntervention.date_debut,
+								item.listIntervention.date_fin,
+								themes
+							)
+						);
 						line++;
 
 						//ID_site = item.ID_site,
@@ -138,7 +152,7 @@ namespace InterfaceClient
 				}
 				catch (Exception err)
 				{
-					MessageBox.Show(ConfigurationManager.ConnectionStrings["archeoContext"].ToString() + "\nLa connexion n'est pas valide.\n" + err.Message, "Serveur/Database Incorrect");
+					MessageBox.Show(ConfigurationManager.ConnectionStrings["archeoContext"] + "\nLa connexion n'est pas valide.\n" + err.Message, "Serveur/Database Incorrect");
 				}
 			}
 		}
