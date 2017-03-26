@@ -55,13 +55,6 @@ namespace tp10
 				help();
 			}
 
-			foreach (var item in fichierJson.TableauJson)
-			{
-				//	//Console.WriteLine("{0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12} {13}", item.datasetid, item.recordid, item.fields.departement, item.fields.commune, item.fields.periode_s, item.fields.coordonnee_wgs84, item.fields.nom_du_site, item.fields.date_fin, item.fields.type_d_intervention, item.fields.date_debut, item.geometry.type, item.geometry.coordinates);
-				//	//Console.WriteLine("{0} {1} {2} {3} {4} {5} {6} {7} {8} {9} ", item.datasetid, item.recordid, item.fields.departement, item.fields.commune, item.fields.periode_s, item.fields.coordonnee_wgs84, item.fields.nom_du_site, item.fields.type_d_intervention, item.geometry.type, item.geometry.coordinates);
-				//	Console.WriteLine(item.datasetid +" | "+ item.recordid + " | " + item.fields.departement + " | " + item.fields.commune + " | " + item.fields.periode_s + " | " + item.fields.coordonnee_wgs84 + " | " + item.fields.nom_du_site + " | " + item.fields.type_d_intervention + " | " + item.geometry.type + " | " + item.geometry.coordinates);	
-			}
-
 		}
 
 
@@ -70,7 +63,6 @@ namespace tp10
 
 			using (archeoContext context = new archeoContext())
 			{
-				//context.Configuration.LazyLoadingEnabled = true;
 				foreach (var itemjson in fichierJson.TableauJson)
 				{
 					string nomDepartement = itemjson.fields.departement;
@@ -81,8 +73,6 @@ namespace tp10
 					string idsiteIntervention = itemjson.recordid;
 					float latiIenterention = itemjson.fields.coordonnee_wgs84[0];
 					float longitudeIenterention = itemjson.fields.coordonnee_wgs84[1];
-					string DateDebut = itemjson.fields.date_debut;
-					string DateFin = itemjson.fields.date_fin;
 
 					// stockage des départements
 					//Interrogation de la base de donnée en LINQ
