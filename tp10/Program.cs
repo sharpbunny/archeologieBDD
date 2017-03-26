@@ -134,7 +134,6 @@ namespace tp10
 								if (existTheme == null)
 								{
 									theme newtheme = new theme();
-									Console.WriteLine("Essai d'ajout de {0}", item);
 									newtheme.nom = item;
 									context.themes.Add(newtheme);
 									context.SaveChanges();
@@ -192,7 +191,7 @@ namespace tp10
 						Console.WriteLine("Pas de type d'intervention pour ce chantier.");
 					}
 
-					// insertion des periodes
+					// insertion des périodes
 					string periode = itemjson.fields.theme_s;
 					List<periode> listPeriode = new List<periode>();
 					if (periode != null)
@@ -213,7 +212,7 @@ namespace tp10
 									context.periodes.Add(newperiode);
 									context.SaveChanges();
 									listPeriode.Add(newperiode);
-									Console.WriteLine("Période {0} créé id: {1}", item, newperiode.ID_periode);
+									Console.WriteLine("Période {0} créée id: {1}", item, newperiode.ID_periode);
 								}
 								else
 								{
@@ -251,12 +250,12 @@ namespace tp10
 
 
 						context.SaveChanges();
-						Console.WriteLine("site d'intervention {0} dans commune {1} créée id: {2}", nomsiteIntervention, nomCommune, idsiteIntervention);
+						Console.WriteLine("Le site d'intervention {0} dans la commune {1} créé id: {2}", nomsiteIntervention, nomCommune, idsiteIntervention);
 					}
 					else
 					{
 						idsiteIntervention = itr.ID_site;
-						Console.WriteLine("site d'intervention {0} dans commune {1} existe id: {2}", nomsiteIntervention, nomCommune, idsiteIntervention);
+						Console.WriteLine("Le site d'intervention {0} dans la commune {1} existe id: {2}", nomsiteIntervention, nomCommune, idsiteIntervention);
 					}
 
 
@@ -280,11 +279,11 @@ namespace tp10
 						insererLintervention.ID_site = idsiteIntervention;
 						context.interventions.Add(insererLintervention);
 						context.SaveChanges();
-						Console.WriteLine(" l'intervention du {0} au {1} a été inséré :",insererLintervention.date_debut, insererLintervention.date_fin);						
+						Console.WriteLine("L'intervention du {0} au {1} a été insérée :",insererLintervention.date_debut, insererLintervention.date_fin);						
 					}
 					else
 					{
-						Console.WriteLine("Cette intervention a déja été enregistré. Pas de clé étrangère associée");
+						Console.WriteLine("Cette intervention a déjà été enregistrée. Pas de clé étrangère associée");
 					}
 
 					

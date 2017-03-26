@@ -36,6 +36,11 @@ namespace InterfaceClient
 			ChargementDonnees();
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void triCommune_Click(object sender, RoutedEventArgs e)
 		{
 			throw new NotSupportedException();
@@ -47,27 +52,39 @@ namespace InterfaceClient
 		public class ArcheoData
 		{
 
-			public ArcheoData(int line, string id, string no, string co, float lat, float lon)
+			public ArcheoData(int line, string id, string no, string co, string dp, float lat, float lon, DateTime? ddeb, DateTime? dfin, string th)
 			{
 				LineNumber = line;
 				IDLigne = id;
 				NomSite = no;
 				NomCommune = co;
+				NomDepartement = dp;
 				Latitude = lat;
 				Longitude = lon;
+				DateDebut = ddeb;
+				DateFin = dfin;
+				Theme = th;
 			}
 
-			public int LineNumber { get; set; }
+			public int LineNumber { get; }
 
-			public string IDLigne { get; set; }
+			public string IDLigne { get; }
 
 			public string NomSite { get; set; }
 
 			public string NomCommune { get; set; }
 
+			public string NomDepartement { get; set; }
+
 			public float Latitude { get; set; }
 
 			public float Longitude { get; set; }
+
+			public DateTime? DateDebut { get; set; }
+
+			public DateTime? DateFin { get; set; }
+
+			public string Theme { get; set; }
 
 		}
 
@@ -83,7 +100,8 @@ namespace InterfaceClient
 				{
 					var seeAll = from site in contextSiteIntervention.site_intervention
 								 join commune in contextSiteIntervention.Communes on site.ID_commune equals commune.ID_commune
-								 //join ti in contextSiteIntervention.type_intervention on site.ID_site equals ti.site_intervention  && 
+								 join dept in contextSiteIntervention.departements on commune.ID_departement equals dept.ID_departement
+								 join intervention in contextSiteIntervention.interventions on site.ID_site equals intervention.ID_site
 								 select new
 								 {
 									 ID_site = site.ID_site,
@@ -91,17 +109,19 @@ namespace InterfaceClient
 									 periodes = site.periodes,
 									 IDcommune = site.ID_commune,
 									 Commune = commune,
-									 themes = site.themes,
+									 Departement = dept,
 									 latitude = site.latitude,
-									 longitude = site.longitude
+									 longitude = site.longitude,
+									 listIntervention = intervention
 								 };
 
 					int line = 1;
 					foreach (var item in seeAll)
 					{
 						var_dump(item);
-
-						archeologyData.Add(new ArcheoData(line, item.ID_site, item.nom_site, item.Commune.nom, item.latitude, item.longitude));
+						string themes = "a b c";
+						var_dump(item.listIntervention);
+						archeologyData.Add(new ArcheoData(line, item.ID_site, item.nom_site, item.Commune.nom, item.Departement.nom, item.latitude, item.longitude, item.listIntervention.date_debut, item.listIntervention.date_fin, themes));
 						line++;
 
 						//ID_site = item.ID_site,
@@ -150,7 +170,7 @@ namespace InterfaceClient
 		/// <param name="obj"></param>
 		public static void var_dump(object obj)
 		{
-			Debug.WriteLine("{0,-18} {1}", "Name", "Value");
+			Debug.WriteLine("{0,-18} {1}", "Nom", "Valeur");
 			string ln = @"-----------------------------------------------------------------";
 			Debug.WriteLine(ln);
 
