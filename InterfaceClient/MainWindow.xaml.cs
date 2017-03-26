@@ -38,9 +38,7 @@ namespace InterfaceClient
 
 		private void triCommune_Click(object sender, RoutedEventArgs e)
 		{
-
-
-
+			throw new NotSupportedException();
 		}
 
 		/// <summary>
