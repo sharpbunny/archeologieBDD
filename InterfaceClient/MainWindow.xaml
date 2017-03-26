@@ -30,10 +30,10 @@
             </Menu>
         </Grid>
         <Grid Grid.Row="1">
-            <DataGrid  ItemsSource="{Binding archeologyData}" AutoGenerateColumns="False" Margin="180,0,0,0" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False">
+            <DataGrid x:Name="Grill_de_donne" ItemsSource="{Binding archeologyData}" AutoGenerateColumns="False" Margin="193,72,0,0" CanUserReorderColumns="true" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="true">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Ligne" Binding="{Binding LineNumber}"/>
-                    <DataGridTextColumn Header="ID Ligne" Binding="{Binding LineNumber}" Visibility="Hidden"/>
+                    <DataGridTextColumn Header="ID Ligne" Binding="{Binding IDLigne}" /> <!-- Visibility="Hidden" -->
                     <DataGridTextColumn Header="Nom du site" Binding="{Binding NomSite}"/>
                     <DataGridTextColumn Header="Commune" Binding="{Binding NomCommune}"/>
                     <DataGridTextColumn Header="Latitude" Binding="{Binding Latitude}"/>
@@ -41,15 +41,18 @@
                     <DataGridTemplateColumn Header="Thèmes" Width="100">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Theme}" />
+                                <TextBlock x:Name="unText" Text="{Binding Theme}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
-                                <ComboBox Height="22" SelectedItem="{Binding Theme}" />
+                                <ComboBox x:Name="NameComboTheme" Height="22"  MouseLeftButtonDown="NameComboTheme_Loaded" SelectedItem="{Binding ComboTheme}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Période" Binding="{Binding Periode}"/>
+                    <DataGridTextColumn Header="Date Début" Binding="{Binding DateDebut}"/>
+                    <DataGridTextColumn Header="Date Début" Binding="{Binding DateFin}"/>
                 </DataGrid.Columns>
             </DataGrid>
         <Button x:Name="triCommune" Content="Ascendant" HorizontalAlignment="Left" Margin="50,35,0,0" VerticalAlignment="Top" Width="75" Click="triCommune_Click"/>
