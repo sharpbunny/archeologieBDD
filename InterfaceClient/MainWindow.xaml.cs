@@ -98,6 +98,7 @@ namespace InterfaceClient
 			{
 				try
 				{
+					
 					var seeAll = from site in contextSiteIntervention.site_intervention
 								 join commune in contextSiteIntervention.Communes on site.ID_commune equals commune.ID_commune
 								 join dept in contextSiteIntervention.departements on commune.ID_departement equals dept.ID_departement
@@ -138,15 +139,6 @@ namespace InterfaceClient
 						);
 						line++;
 
-						//ID_site = item.ID_site,
-						//nom_site = item.nom_site,
-						//periodes = item.periodes,
-						//ID_commune = item.IDcommune,
-						//Commune = item.Commune,
-						//themes = item.themes,
-						//latitude = item.latitude,
-						//longitude = item.longitude
-						
 					}
 
 				}
