@@ -10,8 +10,6 @@ namespace tp10
 {
 	class Program
 	{
-		private static JsonFile fichierJson;
-						
 		/// <summary>
 		/// Affichage de l'aide du programme en cas d'entrée erronée.
 		/// </summary>
@@ -36,7 +34,7 @@ namespace tp10
 
 						if (File.Exists(args[1]))
 						{
-							fichierJson = new JsonFile(args[1]);
+							JsonFile fichierJson = new JsonFile(args[1]);
 							stockeEnBase(fichierJson);
 						}
 						else
