@@ -33,6 +33,7 @@ namespace InterfaceClient
 			InitializeComponent();
 			this.DataContext = this;
 			archeologyData = new ObservableCollection<ArcheoData>();
+            
 			ChargementDonnees();
 		}
 
@@ -43,7 +44,20 @@ namespace InterfaceClient
 		/// <param name="e"></param>
 		private void triCommune_Click(object sender, RoutedEventArgs e)
 		{
-			throw new NotSupportedException();
+            columnCommune.CanUserSort = true;
+
+            if(triCommune.Content == "Ascendant")
+            {
+                triCommune.Content = "Descendant";
+                columnCommune.SortDirection = System.ComponentModel.ListSortDirection.Ascending;
+                
+            }
+            else
+            {
+                triCommune.Content = "Ascendant";
+                columnCommune.SortDirection = System.ComponentModel.ListSortDirection.Descending;
+
+            }
 		}
 
 		
