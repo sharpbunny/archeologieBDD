@@ -46,7 +46,7 @@ namespace InterfaceClient
 		{
             columnCommune.CanUserSort = true;
 
-            if(triCommune.Content == "Ascendant")
+            if(triCommune.Content.Equals("Ascendant"))
             {
                 triCommune.Content = "Descendant";
                 columnCommune.SortDirection = System.ComponentModel.ListSortDirection.Ascending;
@@ -72,30 +72,56 @@ namespace InterfaceClient
 			{
 				try
 				{
-					
-					var seeAll = from site in contextSiteIntervention.site_intervention
-								 join commune in contextSiteIntervention.Communes on site.ID_commune equals commune.ID_commune
-								 join dept in contextSiteIntervention.departements on commune.ID_departement equals dept.ID_departement
-								 join intervention in contextSiteIntervention.interventions on site.ID_site equals intervention.ID_site
-								 select new
-								 {
-									 ID_site = site.ID_site,
-									 nom_site = site.nom_site,
-									 periodes = site.periodes,
-									 IDcommune = site.ID_commune,
-									 Commune = commune,
-									 Departement = dept,
-									 latitude = site.latitude,
-									 longitude = site.longitude,
-									 listIntervention = intervention
-								 };
-
-					int line = 1;
-					foreach (var item in seeAll)
+					IQueryable<site_intervention> filteredSite = contextSiteIntervention.site_intervention;
+					filteredSite.Join(contextSiteIntervention.Communes, s => s.ID_commune, c => c.ID_commune, (s,c) => new { site_intervention = s, commune = c});
+					filteredSite.Join(contextSiteIntervention.departements, c => c.ID_commune, d => d.ID_departement, (c, d) => new { commune = c, departement = d });
+					filteredSite.Join(contextSiteIntervention.interventions, i => i.ID_site, s => s.ID_site, (i, s) => new { intervention = i, site_intervention = s });
+					//filteredSite.Join(contextSiteIntervention.themes, t => t.themes, s => s.ID_theme, (t, s) => new { theme = t, site_intervention = s });
+					//filteredSite.Where(s => s.nom_site == "Le moulin");
+					//filteredSite.OrderBy(c => c.Commune.nom);
+					filteredSite.Select(site => new site_intervention()
+					{
+						ID_site = site.ID_site,
+						nom_site = site.nom_site,
+						periodes = site.periodes,
+						ID_commune = site.ID_commune,
+						Commune = site.Commune,
+						latitude = site.latitude,
+						longitude = site.longitude,
+						interventions = site.interventions,
+						themes = site.themes
+					});
+					foreach (var item in filteredSite)
 					{
 						var_dump(item);
+						var_dump(item.Commune);
+						var_dump(item.themes);
+					}
+
+					//var seeAll = from site in contextSiteIntervention.site_intervention
+					//			 join commune in contextSiteIntervention.Communes on site.ID_commune equals commune.ID_commune
+					//			 join dept in contextSiteIntervention.departements on commune.ID_departement equals dept.ID_departement
+					//			 join interv in contextSiteIntervention.interventions on site.ID_site equals interv.ID_site
+					//			 //orderby commune.nom
+					//			 select new
+					//			 {
+					//				 ID_site = site.ID_site,
+					//				 nom_site = site.nom_site,
+					//				 periodes = site.periodes,
+					//				 IDcommune = site.ID_commune,
+					//				 Commune = commune,
+					//				 Departement = dept,
+					//				 latitude = site.latitude,
+					//				 longitude = site.longitude,
+					//				 listIntervention = interv
+					//			 };
+
+					int line = 1;
+					foreach (var item in filteredSite)
+					{
+						//var_dump(item);
 						string themes = "a b c";
-						var_dump(item.listIntervention);
+						//var_dump(item.listIntervention);
 						archeologyData.Add
 						(
 							new ArcheoData
@@ -104,11 +130,11 @@ namespace InterfaceClient
 								item.ID_site,
 								item.nom_site,
 								item.Commune.nom,
-								item.Departement.nom,
+								item.Commune.departement.nom,
 								item.latitude,
 								item.longitude,
-								item.listIntervention.date_debut,
-								item.listIntervention.date_fin,
+								item.interventions.FirstOrDefault().date_debut,
+								item.interventions.FirstOrDefault().date_fin,
 								themes
 							)
 						);
