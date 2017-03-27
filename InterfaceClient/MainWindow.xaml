@@ -35,7 +35,7 @@
                     <DataGridTextColumn Header="Ligne" Binding="{Binding LineNumber}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="ID Ligne" Binding="{Binding LineNumber}" Visibility="Hidden"/>
                     <DataGridTextColumn Header="Nom du site" Binding="{Binding NomSite}"/>
-                    <DataGridTextColumn Header="Commune" Binding="{Binding NomCommune}"/>
+                    <DataGridTextColumn x:Name="columnCommune" Header="Commune" Binding="{Binding NomCommune}"/>
                     <DataGridTextColumn Header="Département" Binding="{Binding NomDepartement}"/>
                     <DataGridTextColumn Header="Latitude" Binding="{Binding Latitude}"/>
                     <DataGridTextColumn Header="Longitude" Binding="{Binding Longitude}"/>
@@ -55,8 +55,9 @@
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
-        <Button x:Name="triCommune" Content="Ascendant" HorizontalAlignment="Left" Margin="50,35,0,0" VerticalAlignment="Top" Width="75" Click="triCommune_Click"/>
-       </Grid>
+            <Button x:Name="triCommune" Content="Ascendant" HorizontalAlignment="Left" Margin="50,105,0,0" VerticalAlignment="Top" Width="75" Click="triCommune_Click"/>
+            <GroupBox x:Name="groupBox" Header="Tri Commune" HorizontalAlignment="Left" Margin="42,85,0,0" VerticalAlignment="Top" Height="48" Width="89"/>
+        </Grid>
         <Grid Grid.Row="2">
             <StatusBar Height="24" Margin="0" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom">
                 <Label x:Name="txtStatus" Content="" Width="67" FontFamily="Courier New" VerticalAlignment="Center" FontSize="10"/>
