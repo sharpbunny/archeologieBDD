@@ -41,7 +41,7 @@
                     <DataGridTextColumn Header="Longitude" Binding="{Binding Longitude}"/>
                     <DataGridTextColumn Header="Date début" Binding="{Binding DateDebut}"/>
                     <DataGridTextColumn Header="Date fin" Binding="{Binding DateFin}"/>
-                    <DataGridTemplateColumn Header="Thèmes" Width="100">
+                    <DataGridTemplateColumn Header="Thèmes">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Theme}" />
@@ -53,6 +53,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Type Intervention" Binding="{Binding TypeIntervention}"/>
                 </DataGrid.Columns>
             </DataGrid>
             <Button x:Name="triCommune" Content="Ascendant" HorizontalAlignment="Left" Margin="50,105,0,0" VerticalAlignment="Top" Width="75" Click="triCommune_Click"/>

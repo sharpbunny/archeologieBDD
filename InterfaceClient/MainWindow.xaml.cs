@@ -68,17 +68,17 @@ namespace InterfaceClient
 		/// <returns>Liste des interventions</returns>
 		private void ChargementDonnees()
 		{
+			IQueryable<site_intervention> filteredSite = null;
 			using (archeoContext contextSiteIntervention = new archeoContext())
 			{
 				try
 				{
-					IQueryable<site_intervention> filteredSite = contextSiteIntervention.site_intervention;
+					filteredSite = contextSiteIntervention.site_intervention;
+					//filteredSite.OrderBy(s => s.Commune.nom);
 					filteredSite.Join(contextSiteIntervention.Communes, s => s.ID_commune, c => c.ID_commune, (s,c) => new { site_intervention = s, commune = c});
 					filteredSite.Join(contextSiteIntervention.departements, c => c.ID_commune, d => d.ID_departement, (c, d) => new { commune = c, departement = d });
 					filteredSite.Join(contextSiteIntervention.interventions, i => i.ID_site, s => s.ID_site, (i, s) => new { intervention = i, site_intervention = s });
-					//filteredSite.Join(contextSiteIntervention.themes, t => t.themes, s => s.ID_theme, (t, s) => new { theme = t, site_intervention = s });
 					//filteredSite.Where(s => s.nom_site == "Le moulin");
-					//filteredSite.OrderBy(c => c.Commune.nom);
 					filteredSite.Select(site => new site_intervention()
 					{
 						ID_site = site.ID_site,
@@ -91,12 +91,6 @@ namespace InterfaceClient
 						interventions = site.interventions,
 						themes = site.themes
 					});
-					foreach (var item in filteredSite)
-					{
-						var_dump(item);
-						var_dump(item.Commune);
-						var_dump(item.themes);
-					}
 
 					//var seeAll = from site in contextSiteIntervention.site_intervention
 					//			 join commune in contextSiteIntervention.Communes on site.ID_commune equals commune.ID_commune
@@ -115,13 +109,28 @@ namespace InterfaceClient
 					//				 longitude = site.longitude,
 					//				 listIntervention = interv
 					//			 };
+				}
+				catch (Exception err)
+				{
+					MessageBox.Show(ConfigurationManager.ConnectionStrings["archeoContext"] + "\nLa connexion n'est pas valide.\n" + err.Message, "Serveur/Database Incorrect");
+				}
 
+				// Affichage.
+				try
+				{ 
 					int line = 1;
 					foreach (var item in filteredSite)
 					{
-						//var_dump(item);
-						string themes = "a b c";
-						//var_dump(item.listIntervention);
+						StringBuilder listthemes = new StringBuilder();
+						foreach (var itemtheme in item.themes)
+						{
+							listthemes.Append("#" + itemtheme.nom);
+						}
+						StringBuilder listTypeInter = new StringBuilder();
+						foreach (var itemtype in item.type_intervention)
+						{
+							listTypeInter.Append("#" + itemtype.nom);
+						}
 						archeologyData.Add
 						(
 							new ArcheoData
@@ -135,7 +144,8 @@ namespace InterfaceClient
 								item.longitude,
 								item.interventions.FirstOrDefault().date_debut,
 								item.interventions.FirstOrDefault().date_fin,
-								themes
+								listthemes.ToString(),
+								listTypeInter.ToString()
 							)
 						);
 						line++;
@@ -145,7 +155,7 @@ namespace InterfaceClient
 				}
 				catch (Exception err)
 				{
-					MessageBox.Show(ConfigurationManager.ConnectionStrings["archeoContext"] + "\nLa connexion n'est pas valide.\n" + err.Message, "Serveur/Database Incorrect");
+					MessageBox.Show("\nProblème d'affichage.\n" + err.Message);
 				}
 			}
 		}
