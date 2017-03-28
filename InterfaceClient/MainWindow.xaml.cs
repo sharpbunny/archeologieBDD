@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -44,7 +44,18 @@ namespace InterfaceClient
 		/// <param name="e"></param>
 		private void triCommune_Click(object sender, RoutedEventArgs e)
 		{
-            columnCommune.CanUserSort = true;
+            using (archeoContext contextCommunal = new archeoContext()) {
+
+                if ((string)triCommune.Content == "Ascendant")
+                {
+                    triCommune.Content = "Descendant";
+                    var triCommuneOrdre = from c in contextCommunal.Communes
+                                          orderby Name descending
+                                          select contextCommunal.site_intervention;
+                    foreach(var item in triCommuneOrdre)
+                    {
+
+                    }
 
             if(triCommune.Content.Equals("Ascendant"))
             {
@@ -52,13 +63,22 @@ namespace InterfaceClient
                 columnCommune.SortDirection = System.ComponentModel.ListSortDirection.Ascending;
                 
             }
-            else
-            {
-                triCommune.Content = "Ascendant";
-                columnCommune.SortDirection = System.ComponentModel.ListSortDirection.Descending;
 
+
+                else
+                {
+                    triCommune.Content = "Ascendant";
+                    var triCommuneOrdre = from c in contextCommunal.Communes
+                                          orderby Name descending
+                                          select contextCommunal.site_intervention;
+                    foreach (var item in triCommuneOrdre)
+                    {
+
+                    }
+
+                }
             }
-		}
+        }
 
 		
 

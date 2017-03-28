@@ -26,15 +26,19 @@ namespace tp10
 		static void Main(string[] args)
 		{
 			//Vérification des arguments de la ligne de commande.
+            //Il n'y a que 2 arguments à vérifier dans notre programme, mais il nous faut en vérifier au moins 1
 			if (args.Length > 1)
 			{
+                //Création d'un switch sur l'argument 0
 				switch (args[0])
 				{
 					case "-f":
-
+                        //Vérification de l'existance du fichier
 						if (File.Exists(args[1]))
 						{
+                            //Si le fichier existe, on crée une variable de classe JsonFile, et on appelle une fonction de cette classe
 							JsonFile fichierJson = new JsonFile(args[1]);
+                            //Voir Classe JsonFile
 							stockeEnBase(fichierJson);
 						}
 						else
@@ -43,6 +47,7 @@ namespace tp10
 						}
 
 						break;
+                        //Par défaut, appel de la fonction help afin de réexpliquer à l'utilisateur comment bien faire
 					default:
 						help();
 						break;
@@ -55,12 +60,16 @@ namespace tp10
 
 		}
 
-
+        /// <summary>
+        /// Stockage d'un fichier Json en Base de Données.
+        /// </summary>
+        /// <param name="fichierJson">Nom du fichier Json à rentrer en paramètres.</param>
 		private static void stockeEnBase(JsonFile fichierJson)
 		{
-
+            //Utilisation d'un context basé sur les tables de la base de données
 			using (archeoContext context = new archeoContext())
 			{
+                //Pour chaque éléments du fichier Json, on attribue les noms de colonnes en Json aux noms de colonnes en base de données
 				foreach (var itemjson in fichierJson.TableauJson)
 				{
 					string nomDepartement = itemjson.fields.departement;
@@ -78,14 +87,23 @@ namespace tp10
 					var rechercheNomDep = from d in context.departements
 										  where d.nom == nomDepartement
 										  select d;
+
+                    //Verification de l'existance d'au moins 1 département dans la base de données
 					departement dpt = rechercheNomDep.FirstOrDefault();
+
+                    //Si il y'a au moins un département 
 					if (dpt == null)
 					{
+                        //Création d'une variable département pour attribuer la valeur du Json à celle de la BDD
 						departement departement = new departement();
 						departement.nom = nomDepartement;
+                        //Ajout du département à la colonne des départements
 						context.departements.Add(departement);
+                        //Sauvegarde des changements dans la BDD
 						context.SaveChanges();
+                        //Attribution d'un identifiant au département
 						idDepartement = departement.ID_departement;
+                        //Affichage de la création d'un nouvel élément dans la base de donnée
 						Console.WriteLine("Département {0} créé id: {1}", nomDepartement, idDepartement);
 					}
 					else
