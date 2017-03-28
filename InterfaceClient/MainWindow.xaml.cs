@@ -57,14 +57,7 @@ namespace InterfaceClient
 
                     }
 
-            if(triCommune.Content.Equals("Ascendant"))
-            {
-                triCommune.Content = "Descendant";
-                columnCommune.SortDirection = System.ComponentModel.ListSortDirection.Ascending;
-                
-            }
-
-
+				}
                 else
                 {
                     triCommune.Content = "Ascendant";
