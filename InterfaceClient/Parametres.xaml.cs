@@ -56,7 +56,7 @@ namespace InterfaceClient
 			}
 			catch (Exception err)
 			{
-				MessageBox.Show(ConfigurationManager.ConnectionStrings["archeoContext"].ToString() + ".La connexion n'est pas valide\n" + err.Message, "Serveur/Database Incorrect");
+				MessageBox.Show(ConfigurationManager.ConnectionStrings["archeoContext"] + ".La connexion n'est pas valide\n" + err.Message, "Serveur/Database Incorrect");
 			}
 		}
 

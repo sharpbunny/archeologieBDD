@@ -9,7 +9,7 @@
     <Grid>
         <Label x:Name="server" Content="Serveur" HorizontalAlignment="Left" Margin="25,34,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.455,0.685" Width="59"/>
         <Label x:Name="database" Content="Database" HorizontalAlignment="Left" Margin="25,80,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textServer" HorizontalAlignment="Left" Height="23" Margin="118,37,0,0" TextWrapping="Wrap" Text="FREDERIC-PC\SQLEXPRESS" VerticalAlignment="Top" Width="152"/>
+        <TextBox x:Name="textServer" HorizontalAlignment="Left" Height="23" Margin="118,37,0,0" TextWrapping="Wrap" Text="STA6101660\SQLEXPRESS" VerticalAlignment="Top" Width="152"/>
         <TextBox x:Name="textDatabase" HorizontalAlignment="Left" Height="23" Margin="118,83,0,0" TextWrapping="Wrap" Text="archeologie" VerticalAlignment="Top" Width="152"/>
         <Button x:Name="buttonConnect" Content="Connexion" HorizontalAlignment="Left" Margin="97,136,0,0" VerticalAlignment="Top" Width="75" Click="buttonConnect_Click"/>
         <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="25,178,0,0" VerticalAlignment="Top" Width="245"/>
