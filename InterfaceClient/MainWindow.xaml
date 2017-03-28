@@ -30,7 +30,7 @@
             </Menu>
         </Grid>
         <Grid Grid.Row="1">
-            <DataGrid  ItemsSource="{Binding archeologyData}" AutoGenerateColumns="False" Margin="180,0,0,0" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="False">
+            <DataGrid  ItemsSource="{Binding archeologyData}" AutoGenerateColumns="False" Margin="180,0,0,0">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Ligne" Binding="{Binding LineNumber}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="ID Ligne" Binding="{Binding LineNumber}" Visibility="Hidden"/>
@@ -41,7 +41,7 @@
                     <DataGridTextColumn Header="Longitude" Binding="{Binding Longitude}"/>
                     <DataGridTextColumn Header="Date début" Binding="{Binding DateDebut}"/>
                     <DataGridTextColumn Header="Date fin" Binding="{Binding DateFin}"/>
-                    <DataGridTemplateColumn Header="Thèmes" Width="100">
+                    <DataGridTemplateColumn Header="Thèmes">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Theme}" />
@@ -53,6 +53,8 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Type Intervention" Binding="{Binding TypeIntervention}"/>
+                    <DataGridTextColumn Header="Périodes" Binding="{Binding Periodes}"/>
                 </DataGrid.Columns>
             </DataGrid>
             <Button x:Name="triCommune" Content="Ascendant" HorizontalAlignment="Left" Margin="50,105,0,0" VerticalAlignment="Top" Width="75" Click="triCommune_Click"/>
