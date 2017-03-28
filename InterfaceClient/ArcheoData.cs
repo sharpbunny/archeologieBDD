@@ -11,7 +11,7 @@ namespace InterfaceClient
     /// </summary>
     public class ArcheoData
     {
-        public ArcheoData(int line, string id, string no, string co, string dp, float lat, float lon, DateTime? ddeb, DateTime? dfin, string th, string typ)
+        public ArcheoData(int line, string id, string no, string co, string dp, float lat, float lon, DateTime? ddeb, DateTime? dfin, string th, string typ, string per)
         {
             LineNumber = line;
             IDLigne = id;
@@ -24,6 +24,7 @@ namespace InterfaceClient
             DateFin = dfin;
             Theme = th;
 			TypeIntervention = typ;
+			Periodes = per;
         }
 
         public int LineNumber { get; }
@@ -48,5 +49,7 @@ namespace InterfaceClient
 
 		public string TypeIntervention { get; set; }
 
-    }
+		public string Periodes { get; set; }
+
+	}
 }

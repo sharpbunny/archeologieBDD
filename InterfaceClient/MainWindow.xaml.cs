@@ -90,6 +90,7 @@ namespace InterfaceClient
 						longitude = site.longitude,
 						interventions = site.interventions,
 						themes = site.themes
+						
 					});
 
 					//var seeAll = from site in contextSiteIntervention.site_intervention
@@ -131,6 +132,11 @@ namespace InterfaceClient
 						{
 							listTypeInter.Append("#" + itemtype.nom);
 						}
+						StringBuilder listPeriodes = new StringBuilder();
+						foreach (var itemPeriode in item.periodes)
+						{
+							listPeriodes.Append("#" + itemPeriode.nom);
+						}
 						archeologyData.Add
 						(
 							new ArcheoData
@@ -145,7 +151,8 @@ namespace InterfaceClient
 								item.interventions.FirstOrDefault().date_debut,
 								item.interventions.FirstOrDefault().date_fin,
 								listthemes.ToString(),
-								listTypeInter.ToString()
+								listTypeInter.ToString(),
+								listPeriodes.ToString()
 							)
 						);
 						line++;
