@@ -46,7 +46,7 @@ namespace InterfaceClient
 		{
             columnCommune.CanUserSort = true;
 
-            if(triCommune.Content == "Ascendant")
+            if((string)triCommune.Content == "Ascendant")
             {
                 triCommune.Content = "Descendant";
                 columnCommune.SortDirection = System.ComponentModel.ListSortDirection.Ascending;
@@ -58,6 +58,7 @@ namespace InterfaceClient
                 columnCommune.SortDirection = System.ComponentModel.ListSortDirection.Descending;
 
             }
+            ChargementDonnees();
 		}
 
 		
