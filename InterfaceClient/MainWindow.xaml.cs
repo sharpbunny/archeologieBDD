@@ -87,11 +87,9 @@ namespace InterfaceClient
 				try
 				{
 					filteredSite = contextSiteIntervention.site_intervention;
-					//filteredSite.OrderBy(s => s.Commune.nom);
 					filteredSite.Join(contextSiteIntervention.Communes, s => s.ID_commune, c => c.ID_commune, (s,c) => new { site_intervention = s, commune = c});
 					filteredSite.Join(contextSiteIntervention.departements, c => c.ID_commune, d => d.ID_departement, (c, d) => new { commune = c, departement = d });
 					filteredSite.Join(contextSiteIntervention.interventions, i => i.ID_site, s => s.ID_site, (i, s) => new { intervention = i, site_intervention = s });
-					//filteredSite.Where(s => s.nom_site == "Le moulin");
 					filteredSite.Select(site => new site_intervention()
 					{
 						ID_site = site.ID_site,
@@ -106,23 +104,6 @@ namespace InterfaceClient
 						
 					});
 
-					//var seeAll = from site in contextSiteIntervention.site_intervention
-					//			 join commune in contextSiteIntervention.Communes on site.ID_commune equals commune.ID_commune
-					//			 join dept in contextSiteIntervention.departements on commune.ID_departement equals dept.ID_departement
-					//			 join interv in contextSiteIntervention.interventions on site.ID_site equals interv.ID_site
-					//			 //orderby commune.nom
-					//			 select new
-					//			 {
-					//				 ID_site = site.ID_site,
-					//				 nom_site = site.nom_site,
-					//				 periodes = site.periodes,
-					//				 IDcommune = site.ID_commune,
-					//				 Commune = commune,
-					//				 Departement = dept,
-					//				 latitude = site.latitude,
-					//				 longitude = site.longitude,
-					//				 listIntervention = interv
-					//			 };
 				}
 				catch (Exception err)
 				{
