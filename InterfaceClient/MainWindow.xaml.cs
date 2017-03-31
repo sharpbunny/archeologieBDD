@@ -256,18 +256,19 @@ namespace InterfaceClient
         public void NameComboTheme_Loaded(object sender, MouseButtonEventArgs e)
         {
 
-			//if(sender.Equals())		
-			//Grill_de_donne.CurrentCell.Item;
-			//string selected;
-			//for (int i = 0; i < lesthemes.Count; i++)
-			//{
-			//	selected=lesthemes.ElementAt(i);
+			/*Evenement du sender renvoie un type
+			on cast l'évèment avec ce type (DataGrid)sender;
+			la Grill_de_donne.CurrentCell.Item renvoie un object
+			on cast cette object en object Archeodata  (ArcheoData)Grill_de_donne.CurrentCell.Item;
+			on peut pointer sur les propriétés de tout les éléments la GRID 
+			tbTest est une textbox qui rajoutes les éléments pour renvoyer pour info contenu dans la grid:
+			renvoi a la ligne de la tetxbox => TextWrapping="Wrap" AcceptsReturn="true"
+			*/
 			MessageBox.Show("sender : "+sender.GetType().ToString());
 			//}
 
 			DataGrid dg = new DataGrid();
-			dg = (DataGrid)sender;
-			Commune c = new Commune();
+			dg = (DataGrid)sender;		
 			ArcheoData d = (ArcheoData)Grill_de_donne.CurrentCell.Item;
 			tbTest.Text = d.NomCommune;
 
