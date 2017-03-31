@@ -190,7 +190,7 @@ namespace tp10
 					}
 
 					// insertion des périodes
-					string periode = itemjson.fields.theme_s;
+					string periode = itemjson.fields.periode_s;
 					List<periode> listPeriode = new List<periode>();
 					if (periode != null)
 					{
@@ -277,7 +277,7 @@ namespace tp10
 						insererLintervention.ID_site = idsiteIntervention;
 						context.interventions.Add(insererLintervention);
 						context.SaveChanges();
-						Console.WriteLine("L'intervention du {0} au {1} a été insérée :",insererLintervention.date_debut, insererLintervention.date_fin);						
+						Console.WriteLine("L'intervention du {0} au {1} a été insérée :", insererLintervention.date_debut, insererLintervention.date_fin);						
 					}
 					else
 					{

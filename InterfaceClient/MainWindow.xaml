@@ -33,7 +33,7 @@
             <DataGrid  ItemsSource="{Binding archeologyData}" AutoGenerateColumns="False" Margin="180,0,0,0">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Ligne" Binding="{Binding LineNumber}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="ID Ligne" Binding="{Binding LineNumber}" Visibility="Hidden"/>
+                    <DataGridTextColumn Header="ID Ligne" Binding="{Binding IDLigne}" Visibility="Hidden"/>
                     <DataGridTextColumn Header="Nom du site" Binding="{Binding NomSite}"/>
                     <DataGridTextColumn x:Name="columnCommune" Header="Commune" Binding="{Binding NomCommune}"/>
                     <DataGridTextColumn Header="Département" Binding="{Binding NomDepartement}"/>
