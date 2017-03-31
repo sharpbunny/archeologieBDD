@@ -25,13 +25,19 @@ namespace InterfaceClient
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<string> lesthemes = new List<string>();
-        /// <summary>
-        /// Déclaration d'une ObservableCollection "using System.Collections.ObjectModel" 
-        /// Permet grace au Binding de la Grid ItemsSource="{Binding archeologyData}" dans .Xmal
-        /// De remplir les colonnes associé avec les champ de la class ArcheoData
-        /// </summary>
-        public static ObservableCollection<ArcheoData> archeologyData { get; set; }
+		static string [,] lesThemes;
+		static string[,] copieThemes;		
+		static int col = 2;
+		static int row = 0;
+		static object[,] arraytheme = new object[2,100];
+		static int sautDeLigne = 0;
+
+		/// <summary>
+		/// Déclaration d'une ObservableCollection "using System.Collections.ObjectModel" 
+		/// Permet grace au Binding de la Grid ItemsSource="{Binding archeologyData}" dans .Xmal
+		/// De remplir les colonnes associé avec les champ de la class ArcheoData
+		/// </summary>
+		public static ObservableCollection<ArcheoData> archeologyData { get; set; }
 
         public MainWindow()
         {
@@ -44,14 +50,17 @@ namespace InterfaceClient
 
         private void triCommune_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotSupportedException();
+			
+			//Fonctions.deplacerItem(this);
+
+            //throw new NotSupportedException();
         }
 
         /// <summary>
-        /// 
+        /// Rempli les champs colonne de la data Grid
         /// </summary>
-        public class ArcheoData
-        {
+        public class ArcheoData 
+		{
             public ArcheoData()
             {
 
@@ -64,18 +73,30 @@ namespace InterfaceClient
                 NomCommune = co;
                 Latitude = lat;
                 Longitude = lon;
-                for (int i = 0; i < th.Count; i++)
-                {
-                    Theme = (th.ElementAt(i).nom);
-                }
+				ComboTheme = new ComboBox();
 
-                DateDebut = Convert.ToString(inter.ElementAt(0).date_debut);
-                DateFin = Convert.ToString(inter.ElementAt(0).date_fin);
+				//for (int i = 0; i < th.Count; i++)
+				//{
+				//	copieThemes = new string[col, row];
+
+				//	string[] tabTemp = new string[2];
+				//	Theme = (th.ElementAt(i).nom);
+				//	lesthemes.Add(th.ElementAt(i).ID_theme, Theme);
+				//	ComboTheme.Items.Add(lesthemes.ElementAt(i).Value);
+				//	lessites.Add(th.ElementAt(i).ID_theme, IDLigne);
+				//}
+				//lesThemes = copieThemes;
+				//MessageBox.Show("site : "+lessites.Count);
+				//MessageBox.Show(" theme :"+ lesthemes.Count);
+				DateDebut = inter.ElementAt(0).date_debut;
+                DateFin = inter.ElementAt(0).date_fin;
+
+
                 for (int i = 0; i < per.Count; i++)
                 {
-                    Periode = per.ElementAt(i).nom;
+                    Periode += per.ElementAt(i).nom;
                 }
-                
+
             }
 
             /// <summary>
@@ -99,9 +120,9 @@ namespace InterfaceClient
 
             public string Periode { get; set; }
 
-            public string DateDebut { get; set; }
+            public DateTime? DateDebut { get; set; }
 
-            public string DateFin { get; set; }
+            public DateTime? DateFin { get; set; }
 
         }
 
@@ -144,17 +165,25 @@ namespace InterfaceClient
                     //MessageBox.Show(""+ item.theme.Count);
                     line++;
 
-                    //ID_site = item.ID_site,
-                    //nom_site = item.nom_site,
-                    //periodes = item.periodes,
-                    //ID_commune = item.IDcommune,
-                    //Commune = item.Commune,
-                    //themes = item.themes,
-                    //latitude = item.latitude,
-                    //longitude = item.longitude
+					//ID_site = item.ID_site,
+					//nom_site = item.nom_site,
+					//periodes = item.periodes,
+					//ID_commune = item.IDcommune,
+					//Commune = item.Commune,
+					//themes = item.themes,
+					//latitude = item.latitude,
+					//longitude = item.longitude
 
-                }
 
+					//for (int i = 0; i < Length; i++)
+					//{
+					//	arraytheme[2, sautDeLigne];
+					//}
+					//sautDeLigne++;
+
+
+				}
+			
                 //}
                 //catch (Exception err)
                 //{
@@ -227,16 +256,41 @@ namespace InterfaceClient
         public void NameComboTheme_Loaded(object sender, MouseButtonEventArgs e)
         {
 
-            //ArcheoData Sitegetid = Grill_de_donne.SelectedItems as ArcheoData;
-            //float idsiteintervention = Sitegetid.Latitude;
-            // lesthemes.Add("salut");
-            MessageBox.Show("" + sender);
-          
-            var comboBox = sender as ComboBox;
-            comboBox.ItemsSource = lesthemes;
-            comboBox.SelectedIndex = 0;
+			//if(sender.Equals())		
+			//Grill_de_donne.CurrentCell.Item;
+			//string selected;
+			//for (int i = 0; i < lesthemes.Count; i++)
+			//{
+			//	selected=lesthemes.ElementAt(i);
+			MessageBox.Show("sender : "+sender.GetType().ToString());
+			//}
 
-        }
+			DataGrid dg = new DataGrid();
+			dg = (DataGrid)sender;
+			Commune c = new Commune();
+			ArcheoData d = (ArcheoData)Grill_de_donne.CurrentCell.Item;
+			tbTest.Text = d.NomCommune;
+
+			
+			//foreach (var collection in dg.SelectedCells)
+			//{
+			//	if(collection.Item is Commune)
+			//	{
+			//		Commune c = new Commune();
+			//		c = (Commune)collection.Item;
+			//		tbTest.Text += c.nom;
+			//	}
+
+			//}
+
+
+
+
+			//ArcheoData Sitegetid = Grill_de_donne.SelectedItems as ArcheoData;
+			//float idsiteintervention = Sitegetid.Latitude;
+			//lesthemes.Add("salut");			                         
+
+		}
 
         private void Changer_combobox(object sender, RoutedEventArgs e)
         {
@@ -244,6 +298,7 @@ namespace InterfaceClient
             string name = select.SelectedItem as string;
         }
 
-       
-    }
+	
+		
+	}
 }

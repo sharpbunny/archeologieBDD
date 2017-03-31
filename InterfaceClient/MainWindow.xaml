@@ -16,11 +16,16 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid>
-            <Menu x:Name="menu" Height="24" VerticalAlignment="Top" VerticalContentAlignment="Bottom" Panel.ZIndex="1">
+            <Menu x:Name="menu" Height="24" VerticalAlignment="Top" VerticalContentAlignment="Bottom" Panel.ZIndex="1" Margin="0,0,779,0">
                 <MenuItem Header="_Fichier">
                     <MenuItem x:Name="MenuParametres" Header="_Paramètres" Click="MenuParametres_Click" />
                     <Separator />
                     <MenuItem Header="_Quitter" Click="MenuQuitter_Click" />
+                </MenuItem>
+                <MenuItem Header="_Requête">
+                    <MenuItem x:Name="MenuRequete" Header="_Paramètres" Click="MenuParametres_Click" />
+                    <Separator />
+
                 </MenuItem>
                 <MenuItem Header="_?">
                     <MenuItem Header="_Aide" />
@@ -30,12 +35,12 @@
             </Menu>
         </Grid>
         <Grid Grid.Row="1">
-            <DataGrid x:Name="Grill_de_donne" ItemsSource="{Binding archeologyData}" AutoGenerateColumns="False" Margin="193,72,0,0" CanUserReorderColumns="true" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="true">
+            <DataGrid x:Name="Grill_de_donne" ItemsSource="{Binding archeologyData}" AutoGenerateColumns="False" Margin="193,72,45,0" CanUserReorderColumns="true" CanUserResizeColumns="true" CanUserResizeRows="False" CanUserSortColumns="true" MouseDoubleClick="NameComboTheme_Loaded">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Ligne" Binding="{Binding LineNumber}"/>
-                    <DataGridTextColumn Header="ID Ligne" Binding="{Binding IDLigne}" /> <!-- Visibility="Hidden" -->
+                    <DataGridTextColumn Header="ID Ligne" Binding="{Binding IDLigne}" Visibility="Hidden"/>
                     <DataGridTextColumn Header="Nom du site" Binding="{Binding NomSite}"/>
-                    <DataGridTextColumn Header="Commune" Binding="{Binding NomCommune}"/>
+                    <DataGridTextColumn Header="Commune" Binding="{Binding NomCommune}"  />
                     <DataGridTextColumn Header="Latitude" Binding="{Binding Latitude}"/>
                     <DataGridTextColumn Header="Longitude" Binding="{Binding Longitude}"/>
                     <DataGridTemplateColumn Header="Thèmes" Width="100">
@@ -46,17 +51,19 @@
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
-                                <ComboBox x:Name="NameComboTheme" Height="22"  MouseLeftButtonDown="NameComboTheme_Loaded" SelectedItem="{Binding ComboTheme}" />
+                                <ComboBox x:Name="NameComboTheme" Height="22"  MouseDoubleClick="NameComboTheme_Loaded" SelectedItem="{Binding ComboTheme}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTextColumn Header="Période" Binding="{Binding Periode}"/>
-                    <DataGridTextColumn Header="Date Début" Binding="{Binding DateDebut}"/>
-                    <DataGridTextColumn Header="Date Début" Binding="{Binding DateFin}"/>
+                    <DataGridTextColumn Header="Date Début" Binding="{Binding DateDebut, StringFormat=d}"/>
+                    <DataGridTextColumn Header="Date Début" Binding="{Binding DateFin, StringFormat=d}"/>
                 </DataGrid.Columns>
             </DataGrid>
-        <Button x:Name="triCommune" Content="Ascendant" HorizontalAlignment="Left" Margin="50,35,0,0" VerticalAlignment="Top" Width="75" Click="triCommune_Click"/>
-       </Grid>
+            <Button Height="50" x:Name="triCommune" Content="Ascendant" HorizontalAlignment="Left" Margin="50,35,0,0" VerticalAlignment="Top" Width="75" Click="triCommune_Click"/>
+            <Label x:Name="label_Entete" Content="" HorizontalAlignment="Left" Margin="221,21,0,0" VerticalAlignment="Top" Width="719" Height="40"/>
+            <TextBox x:Name="tbTest" TextWrapping="Wrap" AcceptsReturn="true" HorizontalAlignment="Left" Height="542" Margin="46,90,0,0" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        </Grid>
         <Grid Grid.Row="2">
             <StatusBar Height="24" Margin="0" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom">
                 <Label x:Name="txtStatus" Content="" Width="67" FontFamily="Courier New" VerticalAlignment="Center" FontSize="10"/>
